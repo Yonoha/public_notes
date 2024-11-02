@@ -1,0 +1,16 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'presentable_category.blg'
+[49] biber:340> INFO - === 木 10月 31, 2024, 02:28:20
+[61] Biber.pm:418> INFO - Reading 'presentable_category.bcf'
+[105] Biber.pm:972> INFO - Found 4 citekeys in bib section 0
+[113] Biber.pm:4383> INFO - Processing section 0
+[121] Biber.pm:4574> INFO - Looking for bibtex file 'cf_presentable.bib' for section 0
+[121] bibtex.pm:1713> INFO - LaTeX decoding ...
+[125] bibtex.pm:1518> INFO - Found BibTeX data source 'cf_presentable.bib'
+[162] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[162] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[162] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[162] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[169] bbl.pm:654> INFO - Writing 'presentable_category.bbl' with encoding 'UTF-8'
+[169] bbl.pm:655> INFO - Converting UTF-8 to TeX macros on output to .bbl
+[172] bbl.pm:757> INFO - Output to presentable_category.bbl
