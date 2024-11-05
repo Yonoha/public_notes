@@ -33,6 +33,16 @@
 \newcommand{\yo}{\text{{\usefont{U}{dmjhira}{m}{n}\symbol{"48}}}}
 \newcommand{\oy}{\text{{\reflectbox{\yo}}}}
 
+% \mathbf{1}
+% \tracinglostchars=2
+% \usepackage{unicode-math}
+% \setmathfont{NewCMMath-Book}
+% \setmathfont{NewCMMath-Book}[version=bold]
+% % \setmathfont{NewCMMath-Book}
+% % \setmathfont{NewCMMath-Book}[
+% %   version=bold,
+% %   FakeBold = 1.2 ]
+
 % math definitions
 \DeclareMathOperator{\Ob}{Ob}
 \DeclareMathOperator{\Hom}{Hom}
@@ -136,7 +146,7 @@ We will present Mann's definition after reviewing classical sheaf theory and Gro
 
 In \cref{sec.classical_sheaf_theory}, we review classical sheaf theory with a focus on the proper base change theorem and projection formula. 
 (The abstract theory of derived categories and derived functors is summarized in \cref{sec.derived_categories}.) 
-In \cref{sec.six_functors_formalisms}, we introduce the six-functor formalism and present some fundamental propositions.
+In \cref{sec.six_functors_formalisms}, we introduce six-functor formalisms and present some fundamental propositions.
 
 \subsection{Notation}
 
@@ -250,6 +260,11 @@ We first discuss how to construct a new sheaf from the given sheaves.
   \end{align*}
   We will refer to it as the \textit{tensor product functor}.
 \end{definition}
+
+\begin{proposition}
+  Let $X$ be a topological space.
+  The tensor product functor $\otimes : \Shv(X) \times \Shv(X) \to \Shv(X)$ defines a symmetric monoidal structure on $\Shv(X)$.
+\end{proposition}
 
 \begin{proposition}
   Let $X$ be a topological space.
@@ -403,6 +418,11 @@ We first consider the derived functors of the sheaf hom functor $\underline{\Hom
   For every objects $F$ and $G$ of $D(X)$, $F \otimesL G = F' \otimes^{\bullet} G$, where $F'$ is quasi-isomorphic to $F$ in $K(\Shv(X))$ consisting of flat sheaves (\cref{Ike.2.2.4}). 
 \end{definition}
 
+\begin{proposition}
+  Let $X$ be a topological space.
+  The tensor product functor $\otimesL : D(X) \times D(X) \to D(X)$ defines a symmetric monoidal structure on $D(X)$.
+\end{proposition}
+
 \begin{proposition} \label{Ike.2.2.6}
   Let $X$ be a topological space.
   Then there exists the following adjunction: 
@@ -492,7 +512,78 @@ From here we assume the following condition:
   
 % \end{definition}
 
-\subsection{Some Remarkable formulae} \label{subsec.remarkable_results}
+\subsection{The Cohomology and Poincar\'{e} Duality}
+
+The goal of this section is to see some examples of six functors, and then define the sheaf cohomology and the cohomology of a topological space.
+
+\begin{example}
+  Let $X$ be a topological space, and let $F$ be a sheaf on $X$.
+  Then we have an equivalence
+  \begin{align*}
+    F \otimes \underline{\bbZ} \simeq F \simeq \underline{\bbZ} \otimes F.
+  \end{align*}
+  That is, the constant sheaf $\underline{\bbZ}$ is a unit object of the symmetric monoidal structure on $\Shv(X)$.
+  We denote this unit object by $\mathbf{1}$.
+\end{example}
+
+\begin{remark}
+  Let $\ast$ be a topological space consisting of one point.
+  Then there exists an equivalence of categories $\Shv(\ast) \simeq \Ab$.
+\end{remark}
+
+\begin{example} \label{Ike.eg.1.3.11}
+  The direct image of the projection to a point agrees with the global section:
+  Let $X$ be a topological space, and let $p: X \to \ast$ be the projection.
+  For a sheaf $F$ on $X$, we have 
+  \begin{align*}
+    p_{\ast}F(\ast) \simeq \Gamma(p^{-1}(\ast);F) \simeq \Gamma(X;F).
+  \end{align*}
+  Then we obtain an equivalence of functors $p_{*} \simeq \Gamma(X:-) : \Shv(X) \to \Ab$.
+\end{example}
+
+\begin{example} \label{Ike.eg.1.3.20}
+  The inverse image of the projection to a point agrees with the constant sheaf:
+  Let $X$ be a topological space, and let $p: X \to \ast$ be the projection.
+  For a sheaf $G$ on $\ast$, the value $G(\ast)$ can be identified with an abelian group $M$.
+  We have
+  \begin{align*}
+    p'G(U) 
+    \simeq \colim_{p(U) \subset \ast} G(\ast) 
+    \simeq M,
+  \end{align*} % p'G \simeq \underline{M}. 
+  since the condition $p(U) \subset \ast$ is automatically satisfied.
+  Thus its sheafification $p^{*}G$ is equivalent the constant sheaf $\underline{M}$.
+  Then we obtain an equivalence of functors $p^{*} \simeq \underline{(-)} : \Ab \to \Shv(X)$.
+\end{example}
+
+\begin{remark}
+  Let $X$ be a topological space, and let $p: X \to \ast$ be the projection.
+  By \cref{Ike.eg.1.3.11,Ike.eg.1.3.20}, there exists the following adjunction
+  \begin{align*}
+    p^{*} \simeq \underline{(-)} : \Ab \rightleftarrows \Shv(X) : \Gamma(X;-) \simeq p_{*}.
+  \end{align*}
+  These derived functors define the following adjunction
+  \begin{align*}
+    p^{*} \simeq \underline{(-)} : D(\bbZ) \rightleftarrows D(X) : \bbR\Gamma(X;-) \simeq \bbR p_{*}.
+  \end{align*}
+\end{remark}
+
+\begin{definition}
+  Let $X$ be a topological space, and let $p: X \to \ast$ be the projection.
+  We define the \textit{cohomology} $\bbR \Gamma(X;\bbZ)$ of $X$ by 
+  \begin{align*}
+    \bbR \Gamma(X;\bbZ) 
+    := \bbR \Gamma(X;\mathbf{1}) 
+    \simeq \bbR p_{*} \mathbf{1}.
+  \end{align*}
+  Similarly, we define the \textit{cohomology with compact support} $\bbR \Gamma_{c}(X;\bbZ)$ of $X$ by
+  \begin{align*}
+    \bbR \Gamma_{c}(X;\bbZ) 
+    := \bbR p_{!} \mathbf{1}.
+  \end{align*}
+\end{definition}
+
+\subsection{Some Remarkable Theorems} \label{subsec.remarkable_results}
 
 In this section, we summarize notable results in sheaf theory, which are properties that six-functor formalisms are expected to satisfy (see \cref{Mann.prop.A.5.8}).
 From here we omit the term "derived" and the derived symbol $\bbR$.
@@ -560,13 +651,54 @@ From here we omit the term "derived" and the derived symbol $\bbR$.
 %   is an isomorphism in $D(Y)$.
 % \end{theorem}
 
-% \begin{theorem}[K\"{u}nneth Formula]
-%   Let $X$ and $Y$ be topological spaces.
-%   Then there exists a natural isomorphism
-%   \begin{align*}
-%     \bbR\Gamma(X;\bbZ) \otimes \bbR\Gamma(Y;\bbZ) \simeq \bbR\Gamma(X \times Y;\bbZ).
-%   \end{align*}
-% \end{theorem}
+\begin{theorem}[K\"{u}nneth Formula]
+  Let $X$ and $Y$ be topological spaces.
+  Then the canonical map
+  \begin{align*}
+    \Gamma(X \times Y;\bbZ) \to \Gamma_{c}(X;\bbZ) \otimes \Gamma(Y;\bbZ).
+  \end{align*}
+  is an isomorphism in $D(\bbZ)$.
+\end{theorem}
+
+% % https://q.uiver.app/#q=WzAsMTUsWzAsMCwiXFxhc3QiXSxbNCw1LCJEKFIpIl0sWzAsNSwiRChSKSBcXHRpbWVzIEQoUikiXSxbMywwLCJEKFggXFx0aW1lcyBZKSJdLFsxLDEsIkQoWCkgXFx0aW1lcyBEKFkpIl0sWzIsMSwiRChYIFxcdGltZXMgWSkgXFx0aW1lcyBEKFggXFx0aW1lcyBZKSJdLFsxLDIsIkQoWSkgXFx0aW1lcyBEKFgpIl0sWzIsMiwiRChZKSBcXHRpbWVzIEQoWCBcXHRpbWVzIFkpIl0sWzMsMywiRChZKSJdLFsyLDMsIkQoWSkgXFx0aW1lcyBEKFkpIl0sWzEsMywiRChZKSBcXHRpbWVzIEQoUikiXSxbMiw0LCJEKFIpIFxcdGltZXMgRChZKSJdLFsyLDUsIkQoUikgXFx0aW1lcyBEKFIpIl0sWzQsMCwiRChSKSJdLFswLDQsIkQoWCkgXFx0aW1lcyBEKFkpIl0sWzAsMywiMV97WFl9Il0sWzQsNSwiKGZfe1h9XnsqfSwgZl97WX1eeyp9KSJdLFs1LDMsIlxcb3RpbWVzIiwyXSxbNiw3LCIoXFxpZCwgZl97WH1eeyp9KSIsMl0sWzcsNSwiKGZfe1l9XnsqfSwgXFxpZCkiLDJdLFszLDgsIntmX3tZfX1feyF9Il0sWzgsMSwie3Bfe1l9fV97IX0iLDJdLFs3LDksIihcXGlkLCB7Zl97WX19X3shfSkiXSxbOSw4LCJcXG90aW1lcyJdLFs2LDEwLCIoXFxpZCwge2Zfe1h9fV97IX0pIiwyXSxbMTAsOSwiKFxcaWQsIHBfe1l9XnsqfSkiLDJdLFsxMSw5LCIocF97WX1eeyp9LCBcXGlkKSIsMl0sWzYsOSwiKDUpIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsNCwiKDFfe1h9LDFfe1l9KSJdLFswLDYsIigxX3tZfSwxX3tYfSkiLDJdLFs1LDYsIigzKSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMH0sImxldmVsIjoyLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTEsMSwiKDcpIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEyLDEsIlxcb3RpbWVzIiwyXSxbMTEsMTIsIihcXGlkLCB7cF97WX19X3shfSkiXSxbMiwxMiwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMywxMywicF8hIl0sWzEzLDEsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzMsMSwiKDEpIiwxLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwibGV2ZWwiOjIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDE0LCIoMV97WH0sMV97WX0pIiwyXSxbMTQsMTEsIih7cF97WH19X3shfSwgXFxpZCkiLDJdLFsxNCwxMCwiKDYpIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzE0LDIsIih7cF97WH19X3shfSwge3Bfe1l9fV97IX0pIiwyXSxbMTQsMTIsIig4KSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxNSwxNiwiKDIpIiwxLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzE3LDgsIig0KSIsMSx7ImxldmVsIjoxLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+% \[\begin{tikzcd}
+% 	\ast &&& {D(X \times Y)} & {D(R)} \\
+% 	& {D(X) \times D(Y)} & {D(X \times Y) \times D(X \times Y)} \\
+% 	& {D(Y) \times D(X)} & {D(Y) \times D(X \times Y)} \\
+% 	& {D(Y) \times D(R)} & {D(Y) \times D(Y)} & {D(Y)} \\
+% 	{D(X) \times D(Y)} && {D(R) \times D(Y)} \\
+% 	{D(R) \times D(R)} && {D(R) \times D(R)} && {D(R)}
+% 	\arrow[""{name=0, anchor=center, inner sep=0}, "{1_{XY}}", from=1-1, to=1-4]
+% 	\arrow["{(1_{X},1_{Y})}", from=1-1, to=2-2]
+% 	\arrow["{(1_{Y},1_{X})}"', from=1-1, to=3-2]
+% 	\arrow["{(1_{X},1_{Y})}"', from=1-1, to=5-1]
+% 	\arrow["{p_!}", from=1-4, to=1-5]
+% 	\arrow["{{f_{Y}}_{!}}", from=1-4, to=4-4]
+% 	\arrow["{(1)}"{description}, draw=none, from=1-4, to=6-5]
+% 	\arrow[Rightarrow, no head, from=1-5, to=6-5]
+% 	\arrow[""{name=1, anchor=center, inner sep=0}, "{(f_{X}^{*}, f_{Y}^{*})}", from=2-2, to=2-3]
+% 	\arrow[""{name=2, anchor=center, inner sep=0}, "\otimes"', from=2-3, to=1-4]
+% 	\arrow["{(3)}"{description}, draw=none, from=2-3, to=3-2]
+% 	\arrow["{(\id, f_{X}^{*})}"', from=3-2, to=3-3]
+% 	\arrow["{(\id, {f_{X}}_{!})}"', from=3-2, to=4-2]
+% 	\arrow["{(5)}"{description}, draw=none, from=3-2, to=4-3]
+% 	\arrow["{(f_{Y}^{*}, \id)}"', from=3-3, to=2-3]
+% 	\arrow["{(\id, {f_{Y}}_{!})}", from=3-3, to=4-3]
+% 	\arrow["{(\id, p_{Y}^{*})}"', from=4-2, to=4-3]
+% 	\arrow["\otimes", from=4-3, to=4-4]
+% 	\arrow["{{p_{Y}}_{!}}"', from=4-4, to=6-5]
+% 	\arrow["{(6)}"{description}, draw=none, from=5-1, to=4-2]
+% 	\arrow["{({p_{X}}_{!}, \id)}"', from=5-1, to=5-3]
+% 	\arrow["{({p_{X}}_{!}, {p_{Y}}_{!})}"', from=5-1, to=6-1]
+% 	\arrow["{(8)}"{description}, draw=none, from=5-1, to=6-3]
+% 	\arrow["{(p_{Y}^{*}, \id)}"', from=5-3, to=4-3]
+% 	\arrow["{(\id, {p_{Y}}_{!})}", from=5-3, to=6-3]
+% 	\arrow["{(7)}"{description}, draw=none, from=5-3, to=6-5]
+% 	\arrow[Rightarrow, no head, from=6-1, to=6-3]
+% 	\arrow["\otimes"', from=6-3, to=6-5]
+% 	\arrow["{(2)}"{description}, draw=none, from=0, to=1]
+% 	\arrow["{(4)}"{description}, draw=none, from=2, to=4-4]
+% \end{tikzcd}\]
 
 
 \section{Six-Functor Formalisms} \label{sec.six_functors_formalisms}
