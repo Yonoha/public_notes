@@ -45,16 +45,6 @@
 \DeclareMathOperator{\N}{N}
 \DeclareMathOperator{\Fun}{Fun}
 
-% math definitions for K-theory
-\DeclareMathOperator{\Seq}{Seq}
-\DeclareMathOperator{\core}{core}
-\DeclareMathOperator{\asscat}{asscat}
-\DeclareMathOperator{\Span}{Span}
-\DeclareMathOperator{\Idem}{Idem}
-\DeclareMathOperator{\Ind}{Ind}
-\DeclareMathOperator{\grp}{grp}
-% \newcommand{\Ksp}{\mathcal{K}^{\mathrm{sp}}}
-
 % categories (using mathcal)
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\B}{\mathcal{B}}
@@ -73,6 +63,16 @@
 \renewcommand{\P}{\mathcal{P}}
 \renewcommand{\S}{\mathcal{S}}
 
+% math definitions for K-theory
+\DeclareMathOperator{\Seq}{Seq}
+\DeclareMathOperator{\core}{core}
+\DeclareMathOperator{\asscat}{asscat}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Idem}{Idem}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\grp}{grp}
+% \newcommand{\Ksp}{\mathcal{K}^{\mathrm{sp}}}
+
 % categories (using math rm)
 \newcommand{\An}{\mathrm{An}}
 \newcommand{\Cat}{\mathrm{Cat}}
@@ -82,15 +82,13 @@
 \newcommand{\Mon}{\mathrm{Mon}_{\mathbb{E}_{\infty}}}
 \newcommand{\Grp}{\mathrm{Grp}_{\mathbb{E}_{\infty}}}
 \newcommand{\Ar}{\mathrm{Ar}}
-\newcommand{\TwArr}{\mathrm{TwAr^{r}}}
+\newcommand{\TwAr}{\mathrm{TwAr}}
 \newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\sSet}{\mathrm{sSet}}
 
 % math bb
 \newcommand{\Einf}{\mathbb{E}_{\infty}}
-
-% ------------------------------------------------------
-
-\begin{document}
+\newcommand{\bbK}{\mathbb{K}}
 
 % theorem style (using definition style)
 \newtheorem{theorem}{Theorem}[section]
@@ -109,12 +107,15 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{question}[theorem]{Question}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{newproof}[theorem]{Proof}
 
 % special clever-ref
 \newcommand{\additivitytheorem}{\hyperref[thrm.additivity_theorem]{additivity theorem}}
 \newcommand{\universalitytheorem}{\hyperref[thrm.universality_theorem]{universality theorem}}
 
-% --------------------------------------------------
+% ------------------------------------------------------
+
+\begin{document}
 
 \title{The Higher Algebraic K-Theory of Stable \texorpdfstring{$\infty$}{infty}-Categories}
 \author{Keima Akasaka}
@@ -125,21 +126,21 @@
 \end{abstract} 
 
 % show depth in contents
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 \tableofcontents   
+
 
 \section{Introduction}
 
 This paper is a summary of the workshop on the higher algebraic K-theory held in Kyoto in September 2024.
-Although we do not plan to write a detailed introduction, we are making it available to the public.
-To make it easier to read, all proofs are included in Appendix (if we write).
+To make it easier to read, all proofs are included in Appendix.
 
 \subsection{Notation}
 
 From here all categories are assumed to be $\infty$-categories.
 We let 
 \begin{itemize}
-  \item $\An$ denote the category of anima.
+  \item $\An$ denote the category of small anima.
   \item $\Cat$ denote the category of small categories.
   \item $\Catlex$ denote the category of small categories which admit finite limits, with left exact functors.
   \item $\Catst$ denote the category of small stable categories with exact functors.
@@ -148,11 +149,15 @@ We let
 \end{itemize}
 
 
-\section{Preliminaries}
+\section{Preliminaries} \label{sec.preliminaries}
 
-\subsection{The Grothendieck Group} % p7
+In this section, we recall some basic notions of $\infty$-categories.
 
-\begin{definition}
+\subsection{The Grothendieck Group} 
+
+In this section, we review the definition of the Grothendieck group for stable categories.
+
+\begin{definition} \label{Ber.def.2.1}
   Let $(\C,\oplus)$ be a stable category, and let $X$ and $Y$ be objects of $\C$.
   We let $[X]$ denote the connected component of $X$.
   The connected component set $\pi_0(\core\C)$, together with the operation $+$ defined by 
@@ -168,8 +173,9 @@ We let
   $[X]=[X']+[X'']$ whenever $X' \to X \to X''$ is a cofiber sequence in $\C$.
 \end{definition}
 
-\begin{remark}
-  The connected component set $\pi_0(\core\C)$ is the set of equivalence classes of objects of $\C$.
+\begin{remark} \label{Ber.rem.2.2}
+  Let $(\C,\oplus)$ be a stable category.
+  Then the connected component set $\pi_0(\core\C)$ is the set of equivalence classes of objects of $\C$.
   Moreover, the Grothendieck group $\K_0(\C)$ is actually abelian.
   \begin{enumerate}
     \item The zero object $0$ of $\C$ is a unit object $[0]$ of $\K_0(\C)$, since $X \to X \to 0$ is a cofiber sequence in $\C$ for every object $X$ of $\C$.
@@ -179,16 +185,23 @@ We let
 \end{remark}
 
 \begin{remark}[Eilenberg swindle]
-  Let $\C$ be a stable category with countable coproduct.
+  Let $\C$ be a stable category with countable coproducts.
   Then the Grothendieck group $\K_0(\C)$ is trivial.
-  It follows from that $X \to \oplus_{n \geq 0} X \to \oplus_{n \geq 1} X$ is a cofiber sequence in $\C$ for every object $X$ of $\C$, and that the last two terms are equivalent.
+  Indeed, for every object $X$ of $\C$, 
+  \begin{align*}
+    X \to \oplus_{n \geq 0} X \to \oplus_{n \geq 1} X
+  \end{align*}
+  is a cofiber sequence in $\C$, and that the last two terms are equivalent.
+  It can be generalized to the algebraic K-theory (see \cref{Ber.prop.A.4}).
 \end{remark}
 
-\begin{remark}
+\begin{remark} \label{Ber.rem.2.5}
   The construction $\C \mapsto \K_0(\C)$ determine a functor $\K_0 : \h\Catst \to \mathrm{Ab}$.
 \end{remark}
 
-\subsection{Arrow Categories and Twisted Arrow Categories} % p13
+\subsection{Arrow Categories and Twisted Arrow Categories} 
+
+In this section, we recall the notions of (twisted) arrow categories.
 
 \begin{definition}
   Let $\C$ be a category.
@@ -198,26 +211,36 @@ We let
   \end{align*} 
 \end{definition}
 
-\begin{definition}
+\begin{definition} \label{Ber.rem.3.1}
   Let $\C$ be a category.
-  We define the \textit{twisted arrow category} $\TwArr(\C)$ of $\C$ as a right fibration classifying the mapping anima functor.
-  That is, the source-target projection 
+  The \textit{twisted arrow category} $\TwAr(\C)$ of $\C$ is the simplicial set which is defined by 
   \begin{align*}
-    (s,t) : \TwArr(\C) \to \C \times \C^{\myop}
+    \TwAr(\C)_n := \Hom_{\mathrm{sSet}}([n] \star [n]^{\myop},\C)
   \end{align*}
-  is the right fibration classifying the mapping anima functor $\Map_{\C} : \C \times \C^{\myop} \to \An^{\myop}$.
+  for every $n \geq 0$, where $\star$ is the join operator.
+  By \cite[Proposition 5.2.1.3]{HA}, $\TwAr(\C)$ is a category.
 \end{definition}
 
-\begin{remark}
+% \begin{definition}
+%   Let $\C$ be a category.
+%   We define the \textit{twisted arrow category} $\TwAr(\C)$ of $\C$ as a right fibration classifying the mapping anima functor.
+%   That is, the source-target projection 
+%   \begin{align*}
+%     (s,t) : \TwAr(\C) \to \C \times \C^{\myop}
+%   \end{align*}
+%   is the right fibration classifying the mapping anima functor $\Map_{\C} : \C \times \C^{\myop} \to \An^{\myop}$.
+% \end{definition}
+
+\begin{remark} \label{Ber.rem.3.2}
   Let $\C$ be a category.
-  Let see the objects and morphisms of $\Ar(\C)$ and $\TwArr(\C)$.
+  Let see the objects and morphisms of $\Ar(\C)$ and $\TwAr(\C)$.
   \begin{itemize}
-    \item The objects of both are both morphisms in $\C$.
+    \item The objects of both are morphisms in $\C$.
     \item A morphism from $f$ to $g$ in $\Ar(\C)$ is a diagram, depicted as 
     \[\begin{tikzpicture}[auto]
       \node (0) at (0,0) {$0$};
       \node (1) at (1.6,-0.6) {$0'$};
-      \node (2) at (2.6,0.6) {$1$};
+      \node (2) at (2.6,0.6) {$1.$};
       \node (3) at (1,1.8) {$1'$};
       \draw[->] (0) -- node[swap] {$f$} (1);
       \draw[->] (0) -- node {} (2);
@@ -227,11 +250,11 @@ We let
       \draw[->] (1) -- node {} (3);
       \draw[->] (2) -- node[swap] {$g$} (3);
     \end{tikzpicture}\]
-    \item A morphism from $f$ to $g$ in $\TwArr(\C)$ is a diagram, depicted as 
+    \item A morphism from $f$ to $g$ in $\TwAr(\C)$ is a diagram, depicted as 
     \[\begin{tikzpicture}[auto]
       \node (0) at (0,0) {$0$};
       \node (1) at (1.6,-0.6) {$0'$};
-      \node (2) at (2.6,0.6) {$1$};
+      \node (2) at (2.6,0.6) {$1.$};
       \node (3) at (1,1.8) {$1'$};
       \draw[->] (0) -- node[swap] {$f$} (1);
       \draw[->] (0) -- node {} (2);
@@ -244,60 +267,94 @@ We let
   \end{itemize}
 \end{remark}
 
-\begin{notation} % p49
+\begin{notation} \label{Ber.p49}
   Let $\C$ be a stable category.
   We let $\Seq(\C)$ denote the full subcategory of $\Fun(\Delta^1 \times \Delta^1,\C)$ spanned by the bifiber sequences in $\C$.
-  We have an equivalence $\Seq(\C) \simeq \Ar(\C)$, so that the category $\Seq(\C)$ is stable.
 \end{notation}
+
+\begin{remark}
+  Let $\C$ be a stable category.
+  Then we have an equivalence of categories $\Seq(\C) \simeq \Ar(\C)$, which implies that the category $\Seq(\C)$ is stable.
+\end{remark}
 
 \begin{notation}
   Let $\C$ be a stable category.
-  We define functors from $\Seq(\C)$ to $\C$ as 
+  We define functors from $\Seq(\C)$ to $\C$ as follows:
   \begin{align*}
-    \fib   : \Seq(\C) \to \C &: (X \to Y \to Z) \mapsto X \\
-    \mid   : \Seq(\C) \to \C &: (X \to Y \to Z) \mapsto Y \\
+    \fib   : \Seq(\C) \to \C &: (X \to Y \to Z) \mapsto X, \\
+    \mid   : \Seq(\C) \to \C &: (X \to Y \to Z) \mapsto Y, \\
     \cofib : \Seq(\C) \to \C &: (X \to Y \to Z) \mapsto Z.
   \end{align*}
 \end{notation}
 
+
+\section{Localization Properties of Functors} \label{sec.localization_properties}
+
+In this section, we define various functors with localizing properties and recall their relations: 
+additive, Verdier-localizing, Karoubi-localizing, grouplike functors.
+
+We follow the terminology of \cite{CDH23}.
+In \cite{CDH23}, these notions are defined for Poincar\'{e}-Verdier squares. 
+We use the same terminology for Verdier squares.
+
 \subsection{Verdier Sequences and Squares}
 
-\begin{definition} % p5
+In this section, we recall the notions of (split) Verdier sequences and Karoubi sequences and there relative versions: (split) Verdier squares and Karoubi squares.
+
+\begin{definition} \label{CDH23.rem.A.1.2}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$.
   We will say that the sequence has \textit{vanishing composition} if the composition $pf$ is a zero object of $\Catst$.
-  In this case, the functor $pf$ is equivalent to the functor $\C \to 0 \to \E$, since the full subcategory of $\Fun^{\mathrm{ex}}(\C,\E)$ spanned by the zero objects is contractible.
+  
+  In this case, the composition $pf$ is equivalent to the functor $\C \to 0 \to \E$, since the full subcategory of $\Fun^{\mathrm{ex}}(\C,\E)$ spanned by the zero objects is contractible.
+  That is, there exists the following commutative diagram:
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$\C$}; 
+    \node (tr) at (1.5,1.5) {$\D$};
+    \node (bl) at (0,0) {$0$}; 
+    \node (br) at (1.5,0) {$\E.$}; 
+    % horizontal lines
+    \draw (tl) -- node {$f$} (tr); 
+    \draw (bl) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tr) -- node {$p$} (br); 
+  \end{tikzpicture}\]
+  We will say that the sequence is a fiber (resp. cofiber) sequence if the above diagram is a Cartesian (resp. coCartesian) diagram.
 \end{definition}
 
-\begin{definition} % p18
+\begin{definition}[\cite{CDH23} Definition A.1.1] \label{CDH23.def.A.1.1}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$ with vanishing composition.
   We will say that this sequence is \textit{Verdier} if it is a bifiber sequence in $\Catst$.
   In this case, we will refer to the functor $f$ as the \textit{Verdier inclusion} and to the functor $p$ as the \textit{Verdier projection}.
 \end{definition}
 
-\begin{definition}
+\begin{definition}[\cite{CDH23} Definition A.2.4] \label{CDH23.def.A.2.4}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a Verdier sequence.
-  We will say that this sequence is \textit{split} if the functor $p$ admits left and right adjoint functors.
+  We will say that this sequence is \textit{split} if the functor $p$ admits both adjoint functors.
   In this case, we will refer to the functor $f$ as the \textit{split Verdier inclusion} and to the functor $p$ as the \textit{split Verdier projection}.
 \end{definition}
 
-\begin{definition}
+\begin{definition}[\cite{CDH23} Definition A.3.5] \label{CDH23.def.A.3.5}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$ with vanishing composition.
   We will say that this sequence is \textit{Karoubi} if its idempotent completion $\C^{\natural} \to \D^{\natural} \to \E^{\natural}$ is a bifiber sequence in $\Catperf$.
   In this case, we will refer to the functor $f$ as the \textit{Karoubi inclusion} and to the functor $p$ as the \textit{Karoubi projection}.
 \end{definition}
 
-We can characterize Verdier inclusions and projections.
+We can characterize Verdier inclusions and projections (\cref{Ber.cor.3.17}).
+The fiber of exact functor $f : \C \to \D$ can be computed by its kernel category $\ker(f)$.
+On the other hand, its cofiber is described by the Verdier quotient.
 
-\begin{definition}
+\begin{definition}[\cite{CDH23} Definition A.1.3] \label{CDH23.def.A.1.3}
   Let $f : \C \to \D$ be an exact functor between stable categories.
-  We will say that a morphism in $\D$ is an \textit{equivalence modulo} $\C$ in $\D$ if its (co)fiber belongs in the essential image of $f$.
+  We will say that a morphism in $\D$ is an \textit{equivalence modulo} $\C$ in $\D$ if its fiber (or equivalently, its cofiber) belongs in the essential image of $f$.
+
   We define the category $\D/\C$ as the localization of $\D$ with respect to the set of equivalences modulo $\C$ in $\D$.
   We will refer to the category $\D/\C$ as the \textit{Verdier quotient} of $\D$ by $\C$.
 \end{definition}
 
 The next proposition implies that the Verdier quotient is universal.
 
-\begin{proposition}[\cite{NS18} Theorem.1.3.3]
+\begin{proposition}[\cite{NS18} Theorem.1.3.3] \label{NS18.thrm.1.3.3}
   Let $f : \C \to \D$ be an exact functor between stable categories.
   Then
   \begin{enumerate}
@@ -311,7 +368,7 @@ The next proposition implies that the Verdier quotient is universal.
   \end{enumerate} 
 \end{proposition}
 
-\begin{proposition}
+\begin{proposition}[\cite{CDH23} Corollary A.1.10] \label{CDH23.cor.A.1.10}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$ with vanishing composition.
   The following conditions are equivalent:
   \begin{enumerate}
@@ -323,66 +380,69 @@ The next proposition implies that the Verdier quotient is universal.
 
 We can characterize split Verdier inclusions and projections.
 
-\begin{proposition} % p46
+\begin{proposition}[\cite{CDH23} Corollary A.2.6] \label{CDH23.cor.A.2.6}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$ with vanishing composition.
   The following conditions are equivalent:
   \begin{enumerate}
     \item The sequence is split Verdier.
-    \item The functor $p$ admits fully faithful left and right adjoint functors.
-    \item The functor $f$ admits fully faithful left and right adjoint functors.
+    \item The functor $p$ admits fully faithful both adjoint functors.
+    \item The functor $f$ is fully faithful and admits both adjoint functors.
   \end{enumerate}
 \end{proposition}
 
 We can characterize Karoubi inclusions and projections.
 
-\begin{proposition}
+\begin{proposition}[\cite{CDH23} Corollary A.3.8] \label{CDH23.cor.A.3.8}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$ with vanishing composition.
   The following conditions are equivalent:
   \begin{enumerate}
     \item The sequence is Karoubi.
-    \item The functor $f$ is fully faithful and the functor $p$ has the dense essential image, and the restriction to the essential image of $p$ is a Verdier projection.
+    \item The functor $f$ is fully faithful and the functor $p$ has the dense essential image $p(\D) \subseteq \E$, and the induced functor $\D \to p(\D)$ is a Verdier projection.
   \end{enumerate}
 \end{proposition}
 
 We can describe Karoubi sequences using Ind-categories. 
 
-\begin{theorem}[Thomason-Neeman's localization theorem] % p49
+\begin{theorem}[Thomason-Neeman's localization theorem] \label{Ber.thrm.3.47}
   Let $\C \xrightarrow{f} \D \xrightarrow{p} \E$ be a sequence in $\Catst$ with vanishing composition.
   The following conditions are equivalent:
   \begin{enumerate}
     \item The sequence is Karoubi.
-    \item The sequence $\Ind(\C) \to \Ind(\D) \to \Ind(\E)$ is Verdier (of non-necessarily small stable categories).
+    \item The sequence $\Ind(\C) \to \Ind(\D) \to \Ind(\E)$ is Verdier (of non-necessarily small categories).
   \end{enumerate}
 \end{theorem}
 
-We introduce the relative versions of these sequences.
+We next introduce the relative versions of these sequences.
 
-\begin{definition}
+\begin{definition}[\cite{CDH23} Definition.1.5.1] \label{CDH23.def.1.5.1}
   A square in $\Catst$ is called
   \begin{itemize}
-    \item \textit{Verdier} if it is (co)Cartesian and its both vertical maps are Verdier projections.
-    \item \textit{split Verdier} if it is (co)Cartesian and its both vertical maps are split Verdier projections.
-    \item \textit{Karoubi} if its idempotent completion is Verdier.
+    \item \textit{Verdier} if it is Cartesian and its both vertical maps are Verdier projections.
+    \item \textit{split Verdier} if it is Cartesian and its both vertical maps are split Verdier projections.
+    \item \textit{Karoubi} if it is Cartesian after idempotent completion and its both vertical maps are Karoubi projections.
   \end{itemize}
 \end{definition}
 
-\begin{remark}
-  Every Verdier (split Verdier, Karoubi) square is also coCartesian in $\Catst$.
+\begin{remark} \label{Ber.rem.3.53}
+  In \cref{CDH23.def.1.5.1}, the condition that the square is Cartesian can be replaced by the condition that it is coCartesian.
+  (See \cref{proof_of_Ber.rem.3.53}.)
 \end{remark}
 
-\begin{remark} % p52
-  Every Verdier square is a Karoubi square, since the idempotent completion preserves small limits.
-  A Karoubi square is a Verdier square if and only if its both vertical maps are essentially surjective.
-\end{remark}
+% \begin{remark} % p52
+%   Every Verdier square is a Karoubi square, since the idempotent completion preserves small limits.
+%   A Karoubi square is a Verdier square if and only if its both vertical maps are essentially surjective.
+% \end{remark}
 
 \subsection{Additive and Grouplike Functors}
 
-\begin{definition}
-  Let $\E$ be a category with a terminal object, and let $F : \Catst \to \E$ be a functor.
-  We will say that $F$ is \textit{reduced} if the object $F(0)$ is equivalent to a terminal object of $\E$, where $0$ is a zero object in $\Catst$.
-\end{definition}
+In this section, we define additive, Verdier-localizing, Karoubi-localizing, and grouplike functors. 
 
 \begin{definition}
+  Let $\E$ be a category with a terminal object, and let $F : \Catst \to \E$ be a functor.
+  We will say that $F$ is \textit{reduced} if $F(0)$ is equivalent to a terminal object of $\E$, where $0$ is a zero object in $\Catst$.
+\end{definition}
+
+\begin{definition}[\cite{HLS23} Definition 2.1] \label{HLS23.def.2.1} %\label{CDH23.def.1.5.4}
   Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
   The functor $F$ is called 
   \begin{itemize}
@@ -392,10 +452,44 @@ We introduce the relative versions of these sequences.
   \end{itemize}
 \end{definition}
 
-\begin{definition}
+Every additive (resp. Verdier-localizing, Karoubi-localizing) functor $F : \Catst \to \E$ sends split Verdier sequences (resp. Verdier sequences, Karoubi sequences) to fiber sequences.
+If $\E$ is stable, the converse holds.
+
+\begin{proposition}[\cite{CDH23} Proposition 1.5.5] \label{CDH23.prop.1.5.5}
+  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
+  If $\E$ is stable, then the following conditions are equivalent:
+  \begin{enumerate}
+    \item The functor $F$ is additive (resp. Verdier-localizing, Karoubi-localizing).
+    \item The functor $F$ takes every split Verdier sequence (resp. Verdier sequence, Karoubi sequence) in $\Catst$ to a fiber sequence in $\E$.
+    (See \cref{proof_of_CDH23.prop.1.5.5}.)
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition}[\cite{HLS23} Definition 2.1] %[\cite{CDH23} Definition 1.5.8] \label{CDH23.def.1.5.8}
   Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be an additive functor.
-  We will say that $F$ is \textit{grouplike} if it lifts to the category $\Mon(\E)$ takes values in $\Grp(\E)$.
+  We will say that $F$ is \textit{grouplike} if it lifts to the category $\Mon(\E)$ takes values in the full subcategory$\Grp(\E)$ of $\Mon(\E)$.
 \end{definition}
+
+\begin{example}[\cite{CDH23} Example 1.5.10] \label{CDH23.eg.1.5.10}
+  We give some (counter)examples.
+  \begin{enumerate}
+    \item The core functor $\core : \Catst \to \An$ is additive, but not grouplike. % since it preserves all limits.
+    \item The algebraic K-theory $\K : \Catst \to \An$ and the algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$ are Verdier-localizing (\cref{thrm.localization_theorem}) and grouplike (\cref{cor.algebraic_k-theory_is_additive_grouplike}), but not Karoubi-localizing.
+    \item The non-connective K-theory spectrum $\bbK : \Catst \to \Sp$ is Karoubi-localizing. (TBA)
+    \item The functor $\K \circ (-)^{\natural} : \Catst \to \An$ is Karoubi-localizing (\cref{cor.group_completion_is_Karaubi_localizing}), thus is Verdier-localizing (\cref{Ber.prop.3.93}).
+    \item The functor $\K_{\geq 0} \circ (-)^{\natural} : \Catst \to \Sp$ is additive, but not Verdier-localizing.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}[\cite{HLS23} Observation 2.2] \label{HLS23.obs.2.2} % also Ber.lem.3.75
+  The additive, Verdier-localizing, Karoubi-localizing functors preserve finite products.
+  (See \cref{proof_of_HLS23.obs.2.2}.)
+\end{proposition}
+
+\subsection{Additive Grouplike vs. Extension-splitting}
+
+We can characterize additive grouplike functors by extension-splitting functors.
+We will use \cref{HLS23.lem.2.5,HLS23.prop.2.4} in the proof of \cref{cor.algebraic_k-theory_is_additive_grouplike}.
 
 \begin{definition}
   Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
@@ -406,55 +500,18 @@ We introduce the relative versions of these sequences.
   induces an equivalence $F(\Seq(\C)) \to F(\C)^2$.
 \end{definition}
 
-\begin{example}
-  We give some (counter)examples.
-  \begin{itemize}
-    \item The core functor $\core : \Catst \to \An$ is additive grouplike.
-    \item The algebraic K-theory $\K : \Catst \to \An$ and the algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$ are Verdier-localizing (\cref{thrm.localization_theorem}) and grouplike (\cref{cor.algebraic_k-theory_is_additive_grouplike}), but not Karoubi-localizing.
-    \item The functor $\K \circ (-)^{\natural} : \Catst \to \An$ is Karoubi-localizing (\cref{cor.group_completion_is_Karaubi_localizing}).
-    \item The functor $\K_{\geq 0} \circ (-)^{\natural} : \Catst \to \Sp$ is additive, but not Verdier-localizing.
-  \end{itemize}
-\end{example}
+We show that additive grouplike functors and extension-splitting functors are equivalent (\cref{HLS23.prop.2.4}). 
 
-\begin{proposition}
-  The additive, Verdier-localizing, Karoubi-localizing, and extension-splitting functors preserve finite products.
-\end{proposition}
-
-The additivity can be verified for split Verdier sequences if a codomain category $\E$ is stable.
-
-\begin{proposition}
-  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
-  If $\E$ is stable, then the following conditions are equivalent:
-  \begin{enumerate}
-    \item The functor $F$ is additive (resp. Verdier-localizing, Karoubi-localizing).
-    \item The functor $F$ takes every split Verdier sequence (resp. Verdier sequence, Karoubi sequence) in $\Catst$ to a fiber sequence in $\E$.
-  \end{enumerate}
-\end{proposition}
-
-The relationship between Verdier-localizing and Karoubi-localizing functors is as follows.
-
-\begin{definition}
-  Let $f : \C \to \D$ be a functor between categories.
-  We will say that $f$ \textit{has the dense image} if, for every object $X$ of $\D$, there exists an object $Y$ in the essential image of $\C$ such that $Y$ is a retract of $X$. 
-\end{definition}
-
-\begin{definition}
-  Let $f : \C \to \D$ be an exact functor between stable categories.
-  We will say that $f$ is a \textit{Karoubi equivalence} if it is fully faithful and has the dense image.
-\end{definition}
-
-\begin{proposition} % p75
-  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
+\begin{lemma}[\cite{HLS23} Lemma 2.5] \label{HLS23.lem.2.5}
+  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced and product-preserving functor.
   The following conditions are equivalent:
   \begin{enumerate}
-    \item The functor $F$ is Karoubi-localizing.
-    \item The functor $F$ is Verdier-localizing and inverts Karoubi equivalences.
+    \item The functor $F$ is extension-splitting.
+    \item The functor $F$ sends the source-target projection $(s,t) : \Ar(\C) \to \C^2$ for every object $\C$ of $\Catst$ to an equivalence in $\E$.
   \end{enumerate}
-\end{proposition}
+\end{lemma}
 
-The next proposition implies that additive grouplike functors and extension-splitting functors are equivalent. 
-
-\begin{proposition} % p62
+\begin{proposition}[\cite{HLS23} Proposition 2.4] \label{HLS23.prop.2.4}
   Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
   The following conditions are equivalent:
   \begin{enumerate}
@@ -463,15 +520,7 @@ The next proposition implies that additive grouplike functors and extension-spli
   \end{enumerate}
 \end{proposition}
 
-We can construct Karoubi-localization functors from Verdier-localizing functors using the idempotent completion.
-
-\begin{proposition}
-  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a Verdier-localizing functor.
-  Suppose that $F$ takes every Cartesian square in $\Catst$ whose vertical maps are dense inclusions, to a Cartesian square in $\E$. 
-  Then the functor $F \circ (-)^{\natural} : \Catst \to \E$ is Karoubi-localizing.
-\end{proposition}
-
-\subsection{Waldhausen's Fibration Theorem}
+\subsection{Additive vs. Verdier-localizing}
 
 In this section, we recall Waldhausen's fibration theorem.
 We will use this theorem in the proof of the localization theorem (\cref{thrm.localization_theorem}).
@@ -495,7 +544,7 @@ We will use this theorem in the proof of the localization theorem (\cref{thrm.lo
 
 We can deduce when an additive functor becomes a Verdier-localizing functor.
 
-\begin{corollary}
+\begin{corollary}[\cite{HLS23} Corollary 2.10] \label{HLS23.cor.2.10}
   Let $F : \Catst \to \An$ be an additive functor.
   These conditions are equivalent:
   \begin{enumerate}
@@ -504,10 +553,46 @@ We can deduce when an additive functor becomes a Verdier-localizing functor.
   \end{enumerate}
 \end{corollary}
 
+\subsection{Verdier-localizing vs. Karoubi-localizing}
 
-\section{The Higher K-Theory of Stable \texorpdfstring{$\infty$}{infty}-Categories}
+The relationship between Verdier-localizing and Karoubi-localizing functors is as follows.
+
+\begin{definition}
+  Let $f : \C \to \D$ be a functor between categories.
+  We will say that $f$ \textit{has the dense image} if, for every object $X$ of $\D$, there exists an object $Y$ in the essential image of $\C$ such that $Y$ is a retract of $X$. 
+\end{definition}
+
+\begin{definition}
+  Let $f : \C \to \D$ be an exact functor between stable categories.
+  We will say that $f$ is a \textit{Karoubi equivalence} if it is fully faithful and has the dense image.
+\end{definition}
+
+\begin{proposition}[\cite{HLS23} Observation 2.12] \label{HLS23.obs.2.12}
+  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a reduced functor.
+  The following conditions are equivalent:
+  \begin{enumerate}
+    \item The functor $F$ is Karoubi-localizing.
+    \item The functor $F$ is Verdier-localizing and inverts Karoubi equivalences.
+  \end{enumerate}
+\end{proposition}
+
+We can construct Karoubi-localization functors from Verdier-localizing functors using the idempotent completion.
+
+\begin{proposition}[\cite{HLS23} Lemma 2.13] \label{HLS23.lem.2.13}
+  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a Verdier-localizing functor.
+  Suppose that $F$ takes every Cartesian square in $\Catst$ whose vertical maps are dense inclusions, to a Cartesian square in $\E$. 
+  Then the functor $F \circ (-)^{\natural} : \Catst \to \E$ is Karoubi-localizing.
+\end{proposition}
+
+
+\section{The Higher K-Theory of Stable \texorpdfstring{$\infty$}{infty}-Categories} \label{sec.algebraic_k_theory}
+
+In this section, we recall the Q-construction and define the algebraic K-theory.
+Moreover we introduce the S-construction, and show that two definitions of algebraic K-theory via two constructions are equivalent.
 
 \subsection{Simplicial Objects}
+
+In this section, we recall the basic notions of simplicial objects.
 
 \begin{definition}
   The inclusion $\N(\Delta) \subseteq \Cat$ induces an adjunction 
@@ -602,7 +687,7 @@ The completeness condition can be understood as indicating that the higher simpl
 
 \begin{definition}
   Let $\C$ be a category with finite limits.
-  For every $n \geq 0$, we let $Q_{n}(\C)$ denote the full subcategory of $\Fun(\TwArr[n],\C)$ spanned by the diagrams which take every square in $\TwArr[n]$ to a Cartesian square in $\C$.
+  For every $n \geq 0$, we let $Q_{n}(\C)$ denote the full subcategory of $\Fun(\TwAr[n],\C)$ spanned by the diagrams which take every square in $\TwAr[n]$ to a Cartesian square in $\C$.
 
   The construction $n \mapsto Q_{n}(\C)$ determines a functor 
   \begin{align*}
@@ -615,7 +700,31 @@ The completeness condition can be understood as indicating that the higher simpl
   We will refer to this functor as the \textit{(Quillen's) Q-construction}.
 \end{definition}
 
-\begin{proposition}
+\begin{notation}
+  For every $n \geq 0$, we let $\J_n$ denote the full subcategory of $\TwAr[n]$ spanned by the images of objects $(i \leq j)$ in $[n]$ satisfying $j \leq i+1$.
+\end{notation}
+
+\begin{lemma} \label{Ber.lem.4.28}
+  Let $\C$ be a category with finite limits, and let $F : \TwAr[n] \to \E$ be a functor.
+  The following conditions are equivalent:
+  \begin{enumerate}
+    \item The functor $F$ belongs to $Q_n(\C)$.
+    \item The functor $F$ is the right Kan extension of its restriction to $\J_n$ along the inclusion $\J_n \subseteq \TwAr[n]$.
+  \end{enumerate}
+  (See \cref{proof_of_Ber.lem.4.28}.)
+\end{lemma}
+
+The next corollary follows from \cref{Ber.lem.4.28} immediately.
+
+\begin{corollary} \label{Ber.cor.4.31}
+  Let $\C$ be a category with finite limits.
+  Then the restriction of $\Fun(\TwAr[n],\C)$ along the inclusion $\J_n \subseteq \TwAr[n]$ induces an equivalence of categories
+  \begin{align*}
+    Q_n(\C) \to \Fun(\J_n,\C).
+  \end{align*}
+\end{corollary}
+
+\begin{proposition} \label{Ber.prop.4.26}
   Let $\C$ be a category with finite limits.
   Then the simplicial object in $\Catlex$
   \begin{align*}
@@ -627,36 +736,16 @@ The completeness condition can be understood as indicating that the higher simpl
     \core Q(\C) : \N(\Delta)^{\myop} \to \An
   \end{align*}
   is complete Segal.
+  (See \cref{proof_of_Ber.prop.4.26}.)
 \end{proposition}
 
-This proposition follows from the following lemmata.
-
-\begin{notation}
-  For every $n \geq 0$, we let $\J_n$ denote the full subcategory of $\TwArr[n]$ spanned by the images of objects $(i \leq j)$ in $[n]$ satisfying $j \leq i+1$.
-\end{notation}
-
-\begin{lemma}
-  Let $\C$ be a category with finite limits, and let $F : \TwArr[n] \to \E$ be a functor.
-  The following conditions are equivalent:
-  \begin{enumerate}
-    \item The functor $F$ belongs to $Q_n(\C)$.
-    \item The functor $F$ is a right Kan extension of its restriction to $\J_n$ along the inclusion $\J_n \subseteq \TwArr[n]$.
-  \end{enumerate}
-\end{lemma}
-
-\begin{lemma} \label{lem.Q_nC_is_equivalent_to_FunJ_n_C}
-  Let $\C$ be a category with finite limits.
-  Then the restriction of $\Fun(\TwArr[n],\C)$ along the inclusion $\J_n \subseteq \TwArr[n]$ induces an equivalence of categories
-  \begin{align*}
-    Q_n(\C) \to \Fun(\J_n,\C).
-  \end{align*} 
-\end{lemma}
-
-\begin{remark}
-  \Cref{lem.Q_nC_is_equivalent_to_FunJ_n_C} implies that, if $\C$ is stable, then $Q_n(\C)$ is stable.
+\begin{remark} \label{Ber.rem.4.32}
+  \Cref{Ber.cor.4.31} implies that, if $\C$ is stable, so is $Q_n(\C)$.
   Therefore we obtain functors
   \begin{align*}
-    Q(\C) : \N(\Delta)^{\myop} \to \Catst ~~ \text{and} ~~ Q : \Catst \to \Fun(\N(\Delta)^{\myop},\Catst).
+    Q(\C) : \N(\Delta)^{\myop} \to \Catst 
+    \quad \text{ and } \quad 
+    Q : \Catst \to \Fun(\N(\Delta)^{\myop},\Catst).
   \end{align*}
   Moreover, for every stable category $\C$, the category $Q_n(\C)$ is a complete Segal simplicial anima, since $\Catst$ is stable under finite limits in $\Cat$.
 \end{remark}
@@ -697,14 +786,14 @@ This proposition follows from the following lemmata.
   \end{align*}
 \end{definition}
 
-\begin{remark}
+\begin{proposition}
   Let $\C$ be a stable category.
   Then we have an equivalence 
   \begin{align*}
     \pi_0\K(\C) \simeq \K_0(\C)
   \end{align*}
   where $\K_0(\C)$ is the Grothendieck group of $\C$.
-\end{remark}
+\end{proposition}
 
 \subsection{Waldhausen's S-Construction}
 
@@ -813,22 +902,22 @@ The goal of this section is to prove the additivity theorem.
   Let $\C$ be a stable category.
   Then the source-target projection induces an equivalence of anima 
   \begin{align*}
-    (s,t) : |\Span(\Ar(\C))| \to |\Span(\C)|^2.
+    |\Span(s,t)| : |\Span(\Ar(\C))| \to |\Span(\C)|^2.
   \end{align*}
 \end{theorem}
 
 The proof of \cref{thrm.additivity_theorem} follows from the next two propositions.
 
-\begin{proposition}
+\begin{proposition} \label{Ber.prop.5.1}
   Let $\C$ be a stable category.
   Then there are canonical equivalences of categories
   \begin{align*}
-    \Span(\C) \to \Span(\C^{\myop}) \quad \text{and} \quad \Span(\Ar(\C)) \simeq \Span(\TwArr(\C)).
+    \Span(\C) \to \Span(\C^{\myop}) \quad \text{and} \quad \Span(\Ar(\C)) \simeq \Span(\TwAr(\C)).
   \end{align*}
   Moreover, they fit together into a natural commutative diagram 
   \[\begin{tikzpicture}[auto,->] 
     \node (tl) at (0,1.5) {$\Span(\Ar(\C))$}; 
-    \node (tr) at (5,1.5) {$\Span(\TwArr(\C))$};
+    \node (tr) at (5,1.5) {$\Span(\TwAr(\C))$};
     \node (bl) at (0,0) {$\Span(\C) \times \Span(\C)$}; 
     \node (br) at (5,0) {$\Span(\C) \times \Span(\C^{\myop}).$}; 
     \draw (tl) -- node {$\simeq$} (tr); 
@@ -838,38 +927,78 @@ The proof of \cref{thrm.additivity_theorem} follows from the next two propositio
   \end{tikzpicture}\]
 \end{proposition}
 
-\begin{proposition}
+\begin{proposition} \label{Ber.prop.5.2}
   Let $\C$ be a stable category.
   Then the source-target projection 
   \begin{align*}
-    (s,t) : \Span(\TwArr(\C)) \to \Span(\C) \times \Span(\C^{\myop})
+    (s,t) : \Span(\TwAr(\C)) \to \Span(\C) \times \Span(\C^{\myop})
   \end{align*}
   is cofinal.
 \end{proposition}
 
-We introduce some corollaries of the additivity theorem.
-
-\begin{corollary}
-  Let $\C$ be a stable category.
-  Then the source-target projection $(s,t) : \Ar(\C) \to \C $ induces an equivalence of anima
-  \begin{align*}
-    \K(\Ar(\C)) \to \K(\C)^2.
-  \end{align*}
-\end{corollary}
+We show some corollaries of \cref{thrm.additivity_theorem}.
 
 \begin{corollary} \label{cor.algebraic_k-theory_is_additive_grouplike}
   The algebraic K-theory $\K : \Catst \to \An$ is additive grouplike.
 \end{corollary}
 
-\begin{proposition}[Eilenberg swindle]
-  Let $\C$ be a stable category with countable coproducts.
-  For every additive grouplike functor $F : \Catst \to \An$, we have 
+\begin{proof}
+  By \cref{Ber.prop.3.76}, it suffices to show that $\K$ is a reduced functor and it is extension splitting.
+  We have 
   \begin{align*}
-    F(\C) \simeq 0
+    \K(0) \simeq \Omega|\Span(0)| \simeq \Omega|\core Q(0)| \simeq 0.
   \end{align*}
-  for every stable category $\C$.
-  In particular, $i$-th K-groups vanish for every $i \geq 0$.
-\end{proposition}
+  By \cref{prop.Ber.subsec.5.2.2}, the algebraic K-theory $\K$ preserves finite products.
+  Then by \cref{Ber.lem.3.79}, it is enough to show that $\K$ sends the source-target projection $(s,t) : \Ar(\C) \to \C$ to an equivalence of anima.
+  That is, there is an equivalence $\K(s,t) : \K(\Ar(\C)) \to \K(\C)^2$.
+  
+  By \cref{thrm.additivity_theorem}, we have an equivalence $|\Span(\Ar(\C))| \to |\Span(\C)|^2$.
+  Since the loop functor $\Omega$ preserves limits, we obtain an equivalence
+  \begin{align*}
+    \K(s,t) : \K(\Ar(\C)) \to \K(\C)^2.
+  \end{align*}
+\end{proof}
+
+\begin{corollary}[Eilenberg swindle] \label{Ber.prop.A.4}
+  Let $\C$ be a stable category with countable coproducts.
+  Then the algebraic K-theory anima vanishes.
+  \begin{align*}
+    \K(\C) \simeq 0.
+  \end{align*}
+\end{corollary}
+
+\begin{proof}
+  We first prove the following proposition:
+  Let $\C$ and $\D$ be stable categories, and let $F' \to F \to F''$ be a cofiber sequence of exact functors from $\C$ to $\D$.
+  Then we have 
+  \begin{align*}
+    \K(F) = \K(F') + \K(F'').
+  \end{align*}
+  Consider the following functors 
+  \begin{align*}
+    \mid, \fib+\cofib : \Seq(\Fun^{\mathrm{ex}}(\C,\D)) \to \Fun^{\mathrm{ex}}(\C,\D).
+  \end{align*}
+  Since $\K$ is extension splitting (see \cref{Ber.prop.3.76}), by Waldhausen's Additivity Theorem (reference to be added), we have an equivalence % Ber.lem.3.77
+  \begin{align*}
+    \K(\mid) \simeq \K(\fib) + \K(\cofib).
+  \end{align*}
+  We obtain the assertion by applying to this proposition to the cofiber sequence $F' \to F \to F''$.
+
+  Consider the functor
+  \begin{align*}
+    F : \C \to \C : X \mapsto \bigoplus_{n \in \mathbb{N}} X_n .
+  \end{align*}
+  Then there exists a cofiber sequence 
+  \begin{align*}
+    \id_{\C} \to F \to F
+  \end{align*}
+  of exact functors on $\C$.
+  By the above proposition, we have an equivalence 
+  \begin{align*}
+    \K(F) \simeq \K(\id_{\C}) + \K(\F). 
+  \end{align*}
+  Thus we have $\K(\id_{\C}) \simeq 0$ and $\K(\C) \simeq 0$.
+\end{proof}
 
 \subsection{The algebraic K-Theory Spectrum}
 
@@ -895,90 +1024,6 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
   \end{align*}
   since $\Sigma^\infty$ is fully faithful.
 \end{remark}
-
-
-\section{The Universality Theorem}
-
-The goal of this section is to prove the universality theorem.
-
-\begin{theorem}[\cite{HLS23} Theorem.5.1 (The Universality Theorem)] \label{thrm.universality_theorem}
-  The algebraic K-theory $\K : \Catst \to \An$ is an initial additive grouplike functor under the core functor $\core : \Catst \to \An$.
-  That is, the natural map $\tau : \core \Rightarrow \K$ is an initial object in the category $\Fun(\Catst,\An)^{\mathrm{add,grp}}_{\core/}$.
-\end{theorem}
-
-\begin{notation}
-  Let $F : \Catst \to \An$ be a reduced functor.
-  We denote a functor 
-  \begin{align*}
-    GF(-) := \Omega|FQ(-)| : \Catst \to \An. 
-  \end{align*}
-  For example, the functor $G\core$ is equivalent to the algebraic K-theory $\K$.
-\end{notation}
-
-\begin{proof}
-  We want to show that the natural transformation $\tau : \core \Rightarrow \K$ induces an equivalence
-  \begin{align*}
-    \tau^{\ast} : \Nat(\K,F) \to \Nat(\core,F)
-  \end{align*}
-  for every additive grouplike functor $F : \Catst \to \An$.
-  
-  Now consider the following diagram 
-  \[\begin{tikzpicture}[auto,->]
-    \node (tl) at (0,4) {$\Nat(G\core,F)$};
-    \node (tr) at (5,4) {$\Nat(\core,F)$};
-    \node (ml) at (0,2) {$\Nat(GG\core,GF)$};
-    \node (mr) at (5,2) {$\Nat(G\core,GF)$};
-    \node (bl) at (0,0) {$\Nat(G\core,GF)$};
-    \node (br) at (5,0) {$\Nat(\core,GF)$};
-    % horizontal lines
-    \draw (tl) -- node {$(\eta_{\core})^\ast$} (tr);
-    \draw[red] (ml) -- node {$(G\eta_{\core})^\ast$} (mr);
-    \draw (bl) -- node {$(\eta_{\core})^\ast$} (br);
-    % vertical lines
-    \draw (tl) -- node {$G$} (ml);
-    \draw[red] (ml) -- node {$(\eta_{G\core})^\ast$} (bl);
-    \draw (tr) -- node[swap] {$G$} (mr);
-    \draw (mr) -- node[swap] {$(\eta_{\core})^\ast$} (br); 
-    % bending lines 
-    \draw[bend right=70,red] (tl) to node[swap] {$(\eta_{F})^\ast$} (bl);
-    \draw[bend left=70,red] (tr) to node {$(\eta_{F})^\ast$} (br);
-  \end{tikzpicture}\]
-  where the upper square commutes since $G$ is a functor, and the other there parts commute since $\eta$ is natural.
-  Suppose the red-colored maps are equivalent, then we can show that the upper horizontal map $(\eta_{\core})^\ast$ is an equivalence.
-  If we apply this to the case $F \simeq \core$, then we obtain the desired result.
-  This assumption follows from the next two propositions.
-\end{proof}
-
-The next proposition implies that $(\eta_{F})_{\ast}$ and $(G\eta_{\core})^{\ast}$ are equivalences.
-
-\begin{proposition}
-  Let $F : \Catst \to \An$ be an additive grouplike functor.
-  Then the natural transformation
-  \begin{align*}
-    \eta_{F} : F \Rightarrow GF
-  \end{align*}
-  is an equivalence. 
-\end{proposition}
-
-The next proposition implies that $(\eta_{G\core})$ is an equivalence.
-
-\begin{proposition}
-  Let $F : \Catst \to \An$ be an additive functor.
-  Then the two natural transformations
-  \begin{align*}
-    \eta_{GF} , G\eta_{F} : GF \Rightarrow GGF
-  \end{align*}
-  differ by an automorphism of the target.
-  That is, the following diagram commutes
-  \[\begin{tikzpicture}[auto,->] 
-    \node (tl) at (0,1.5) {$GF$}; 
-    \node (tr) at (2,1.5) {$GGF$};
-    \node (br) at (2,0) {$GGF.$}; 
-    \draw (tl) -- node {$G\eta_{F}$} (tr); 
-    \draw (tr) -- node {$\simeq$} (br); 
-    \draw (tl) -- node[swap] {$\eta_{GF}$} (br);
-  \end{tikzpicture}\] 
-\end{proposition}
 
 
 \section{The Localization Theorem}
@@ -1064,6 +1109,90 @@ This proposition is a special case of the following proposition.
     \item The category $S$ is closed under 2-out-of-6 in $\C$.
     \item A morphism in $\D$ belongs to $S$ if and only if its source and target are in $S$ and it is invertible in $\C[S^{-1}]$.
   \end{enumerate}
+\end{proposition}
+
+
+\section{The Universality Theorem}
+
+The goal of this section is to prove the universality theorem.
+
+\begin{theorem}[\cite{HLS23} Theorem.5.1 (The Universality Theorem)] \label{thrm.universality_theorem}
+  The algebraic K-theory $\K : \Catst \to \An$ is an initial additive grouplike functor under the core functor $\core : \Catst \to \An$.
+  That is, the natural map $\tau : \core \Rightarrow \K$ is an initial object in the category $\Fun(\Catst,\An)^{\mathrm{add,grp}}_{\core/}$.
+\end{theorem}
+
+\begin{notation}
+  Let $F : \Catst \to \An$ be a reduced functor.
+  We denote a functor 
+  \begin{align*}
+    GF(-) := \Omega|FQ(-)| : \Catst \to \An. 
+  \end{align*}
+  For example, the functor $G\core$ is equivalent to the algebraic K-theory $\K$.
+\end{notation}
+
+\begin{proof}
+  We want to show that the natural transformation $\tau : \core \Rightarrow \K$ induces an equivalence
+  \begin{align*}
+    \tau^{\ast} : \Nat(\K,F) \to \Nat(\core,F)
+  \end{align*}
+  for every additive grouplike functor $F : \Catst \to \An$.
+  
+  Now consider the following diagram 
+  \[\begin{tikzpicture}[auto,->]
+    \node (tl) at (0,4) {$\Nat(G\core,F)$};
+    \node (tr) at (5,4) {$\Nat(\core,F)$};
+    \node (ml) at (0,2) {$\Nat(GG\core,GF)$};
+    \node (mr) at (5,2) {$\Nat(G\core,GF)$};
+    \node (bl) at (0,0) {$\Nat(G\core,GF)$};
+    \node (br) at (5,0) {$\Nat(\core,GF)$};
+    % horizontal lines
+    \draw (tl) -- node {$(\eta_{\core})^\ast$} (tr);
+    \draw[red] (ml) -- node {$(G\eta_{\core})^\ast$} (mr);
+    \draw (bl) -- node {$(\eta_{\core})^\ast$} (br);
+    % vertical lines
+    \draw (tl) -- node {$G$} (ml);
+    \draw[red] (ml) -- node {$(\eta_{G\core})^\ast$} (bl);
+    \draw (tr) -- node[swap] {$G$} (mr);
+    \draw (mr) -- node[swap] {$(\eta_{\core})^\ast$} (br); 
+    % bending lines 
+    \draw[bend right=70,red] (tl) to node[swap] {$(\eta_{F})^\ast$} (bl);
+    \draw[bend left=70,red] (tr) to node {$(\eta_{F})^\ast$} (br);
+  \end{tikzpicture}\]
+  where the upper square commutes since $G$ is a functor, and the other there parts commute since $\eta$ is natural.
+  Suppose the red-colored maps are equivalent, then we can show that the upper horizontal map $(\eta_{\core})^\ast$ is an equivalence.
+  If we apply this to the case $F \simeq \core$, then we obtain the desired result.
+  This assumption follows from the next two propositions.
+\end{proof}
+
+The next proposition implies that $(\eta_{F})_{\ast}$ and $(G\eta_{\core})^{\ast}$ are equivalences.
+
+\begin{proposition}
+  Let $F : \Catst \to \An$ be an additive grouplike functor.
+  Then the natural transformation
+  \begin{align*}
+    \eta_{F} : F \Rightarrow GF
+  \end{align*}
+  is an equivalence. 
+\end{proposition}
+
+The next proposition implies that $(\eta_{G\core})$ is an equivalence.
+
+\begin{proposition}
+  Let $F : \Catst \to \An$ be an additive functor.
+  Then the two natural transformations
+  \begin{align*}
+    \eta_{GF} , G\eta_{F} : GF \Rightarrow GGF
+  \end{align*}
+  differ by an automorphism of the target.
+  That is, the following diagram commutes
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$GF$}; 
+    \node (tr) at (2,1.5) {$GGF$};
+    \node (br) at (2,0) {$GGF.$}; 
+    \draw (tl) -- node {$G\eta_{F}$} (tr); 
+    \draw (tr) -- node {$\simeq$} (br); 
+    \draw (tl) -- node[swap] {$\eta_{GF}$} (br);
+  \end{tikzpicture}\] 
 \end{proposition}
 
 
@@ -1165,6 +1294,192 @@ The goal of this section is to prove the cofinality theorem.
   \end{align*}
   are isomorphisms for every $i \geq 1$.
 \end{corollary}
+
+\appendix
+
+
+\section{Proofs in \Cref{sec.localization_properties}}
+
+\begin{newproof}[\Cref{Ber.rem.3.53}] \label{proof_of_Ber.rem.3.53}
+  We show that every Verdier sequence square is a coCartesian diagram in $\Catst$.
+  Consider the following Verdier sequence.
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$\D$}; 
+    \node (tr) at (1.5,1.5) {$\D'$};
+    \node (bl) at (0,0) {$\E$}; 
+    \node (br) at (1.5,0) {$\E',$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tr) -- node {} (br); 
+    % pullback symbol (\lrcorner) in the lower right corner of (tl)
+    \node at (tl.south east) {$\lrcorner$};
+  \end{tikzpicture}\]
+  where the vertical maps are Verdier projections. 
+  Then we can extend to the following diagram.
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$\C$};
+    \node (tm) at (1.5,1.5) {$\D$}; 
+    \node (tr) at (3,1.5) {$\D'$};
+    \node (bl) at (0,0) {$0$}; 
+    \node (bm) at (1.5,0) {$\E$};
+    \node (br) at (3,0) {$\E'$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tm); 
+    \draw (tm) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (bm); 
+    \draw (bm) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tm) -- node {} (bm);
+    \draw (tr) -- node {} (br);
+    % pullback symbol (\lrcorner) in the lower right corner of 
+    % \node at (tl.south east) {$\lrcorner$};
+    \node at (tm.south east) {$\lrcorner$};
+    % pushout symbol (\ulcorner) in the upper left corner of
+    % \node at (bm.north west) {$\ulcorner$};
+    % \node at (br.north west) {$\ulcorner$};
+  \end{tikzpicture}\]
+  By definition, the left and outer squares are biCartesian squares.
+  Then the right square is also a biCartesian square.
+\end{newproof}
+
+\begin{newproof}[\Cref{CDH23.prop.1.5.5}] \label{proof_of_CDH23.prop.1.5.5}
+  (1) $\Rightarrow$ (2) is obvious.
+  (2) $\Rightarrow$ (1): 
+  Consider the following Verdier sequence.
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$\D$}; 
+    \node (tr) at (1.5,1.5) {$\D'$};
+    \node (bl) at (0,0) {$\E$}; 
+    \node (br) at (1.5,0) {$\E',$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tr) -- node {} (br); 
+    % pullback symbol (\lrcorner) in the lower right corner of (tl)
+    \node at (tl.south east) {$\lrcorner$};
+  \end{tikzpicture}\]
+  Then we can extend to the following diagram.
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$\C$};
+    \node (tm) at (1.5,1.5) {$\D$}; 
+    \node (tr) at (3,1.5) {$\D'$};
+    \node (bl) at (0,0) {$0$}; 
+    \node (bm) at (1.5,0) {$\E$};
+    \node (br) at (3,0) {$\E'$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tm); 
+    \draw (tm) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (bm); 
+    \draw (bm) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tm) -- node {} (bm);
+    \draw (tr) -- node {} (br);
+    % pullback symbol (\lrcorner) in the lower right corner of 
+    \node at (tl.south east) {$\lrcorner$};
+    \node at (tm.south east) {$\lrcorner$};
+    % pushout symbol (\ulcorner) in the upper left corner of
+    % \node at (bm.north west) {$\ulcorner$};
+    % \node at (br.north west) {$\ulcorner$};
+  \end{tikzpicture}\]
+  By definition, the left, right, outer squares are Cartesian squares.
+  Thus the sequences $\C \to \D \to \E$ and $\C \to \D' \to E'$ are Verdier sequences in $\Catst$.
+  By assumption, the sequences $F(\C) \to F(\D) \to F(\E)$ and $F(\C) \to F(\D') \to F(\E')$ are fiber sequences in $\E$.
+  Then the left and outer squares in the following diagram are Cartesian squares. 
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$F(\C)$};
+    \node (tm) at (2,1.5) {$F(\D)$}; 
+    \node (tr) at (4,1.5) {$F(\D')$};
+    \node (bl) at (0,0) {$\ast$}; 
+    \node (bm) at (2,0) {$F(\E)$};
+    \node (br) at (4,0) {$F(\E')$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tm); 
+    \draw (tm) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (bm); 
+    \draw (bm) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tm) -- node {} (bm);
+    \draw (tr) -- node {} (br);
+    % pullback symbol (\lrcorner) in the lower right corner of 
+    \node at (tl.south east) {$\lrcorner$};
+    \node at (tm.south east) {$\lrcorner$};
+    % pushout symbol (\ulcorner) in the upper left corner of
+    % \node at (bm.north west) {$\ulcorner$};
+    % \node at (br.north west) {$\ulcorner$};
+  \end{tikzpicture}\]
+  Then the right square is also a Cartesian square.
+\end{newproof}
+
+\begin{newproof}[\Cref{HLS23.obs.2.2}] \label{proof_of_HLS23.obs.2.2}
+  We show that every Verdier-localizing functor preserves finite products.
+  Let $\E$ be a category with finite limits, and let $F : \Catst \to \E$ be a Verdier-localizing functor.
+  The following diagram is a Cartesian square in $\Catst$.
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$\C \times \D$}; 
+    \node (tr) at (1.5,1.5) {$\D$};
+    \node (bl) at (0,0) {$\C$}; 
+    \node (br) at (1.5,0) {$0.$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tr) -- node {} (br); 
+    % pullback symbol (\lrcorner) in the lower right corner of (tl)
+    \node at (tl.south east) {$\lrcorner$};
+  \end{tikzpicture}\]
+  Applying the functor $F$, we obtain the following Cartesian square in $\E$.
+  \[\begin{tikzpicture}[auto,->] 
+    \node (tl) at (0,1.5) {$F(\C \times \D)$}; 
+    \node (tr) at (2,1.5) {$F(\D)$};
+    \node (bl) at (0,0) {$F(\C)$}; 
+    \node (br) at (2,0) {$\ast.$}; 
+    % horizontal lines
+    \draw (tl) -- node {} (tr); 
+    \draw (bl) -- node[swap] {} (br); 
+    % vertical lines
+    \draw (tl) -- node[swap] {} (bl);
+    \draw (tr) -- node {} (br); 
+    % pullback symbol (\lrcorner) in the lower right corner of (tl)
+    \node at (tl.south east) {$\lrcorner$};
+  \end{tikzpicture}\]
+  This implies that 
+  \begin{align*}
+    F(\C \times \D) \simeq F(\C) \times F(\D).
+  \end{align*}
+\end{newproof}
+
+
+\section{Proofs in \Cref{sec.algebraic_k_theory}}
+
+\begin{newproof}[\Cref{Ber.lem.4.28}] \label{proof_of_Ber.lem.4.28}
+  The map 
+  \begin{align*}
+    e_i : [1] \to [n] : 0 \mapsto i \text{ and } 1 \mapsto i+1
+  \end{align*}
+  in $\Delta$ induces an equivalence of categories 
+  \begin{align*}
+    \J_n 
+    \simeq \J_1 \coprod_{\J_0} \J_1 \cdots \coprod_{\J_0} \J_1 
+    \simeq \TwAr[1] \coprod_{\TwAr[0]} \TwAr[1] \cdots \coprod_{\TwAr[0]} \TwAr[1]
+  \end{align*}
+  in $\Catlex$.
+  Then the right Kan extension along the inclusion $\J_n \subseteq \TwAr[n]$ factors through $n(n-1)/2$-times the right Kan extension along the inclusion $\J_i \subseteq \TwAr[i]$ for $2 \leq n$.
+  The right Kan extension along the inclusion $\J_2 \subseteq \TwAr[2]$ correspondences the operation of taking the pullback.
+  Then the equivalence of conditions follows from that a functor $F$ belong to $Q_n(\C)$ if and only if each square is a Cartesian square.
+\end{newproof}
+
+\begin{newproof}[\Cref{Ber.prop.4.26}] \label{proof_of_Ber.prop.4.26}
+  
+\end{newproof}
 
 \printbibliography
 
