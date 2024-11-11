@@ -1,4 +1,4 @@
-# public_notes
+# Public Notes
 
 I share study notes and presentation materials.
 
