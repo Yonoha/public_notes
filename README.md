@@ -2,9 +2,9 @@
 
 I share study notes and presentation materials.
 
-## Higher Algebraic K-Theory 
+## Algebraic K-Theory 
 
-- [The Higher Algebraic K-Theory of Stable Infinity-Categories](https://github.com/Yonoha/public_notes/blob/main/algebraic_k_theory/algebraic_k_theory.pdf)
+- [The Algebraic K-Theory of Stable Infinity-Categories](https://github.com/Yonoha/public_notes/blob/main/algebraic_k_theory/algebraic_k_theory.pdf)
 
 ## Higher Category Theory
 

@@ -121,12 +121,12 @@
 
 \begin{document}
 
-\title{The Higher Algebraic K-Theory of Stable \texorpdfstring{$\infty$}{infty}-Categories}
+\title{The Algebraic K-Theory of Stable \texorpdfstring{$\infty$}{infty}-Categories}
 \author{Keima Akasaka}
 \maketitle 
 
 \begin{abstract}
-  We summarize the higher algebraic K-theory of stable $\infty$-categories.
+  We summarize the algebraic K-theory of stable $\infty$-categories.
 \end{abstract} 
 
 % show depth in contents
@@ -136,7 +136,7 @@
 
 \section{Introduction}
 
-This paper is a summary of the workshop on the higher algebraic K-theory held in Kyoto in September 2024.
+This paper is a summary of the workshop on the algebraic K-theory held in Kyoto in September 2024.
 
 \subsection{Notation}
 
@@ -190,7 +190,7 @@ In this section, we review the definition of the Grothendieck group for stable c
   Then the Grothendieck group $\K_0(\C)$ is trivial.
   Indeed, for every object $X$ of $\C$, we have $[X] = 0$, since
   \begin{align*}
-    X \to \oplus_{n \geq 0} X \to \oplus_{n \geq 1} X
+    X \to \bigoplus_{n \geq 0} X \to \bigoplus_{n \geq 1} X
   \end{align*}
   is a cofiber sequence in $\C$ and the last two terms are equivalent.
   It can be generalized to the algebraic K-theory (see \cref{Ber.prop.A.4}).
@@ -865,12 +865,14 @@ In this section, we construct the algebraic K-theory using Waldhausen's S-constr
   \end{align*}
 \end{proposition}
 
+\newpage
+
 
 \section{The Additivity Theorem}
 
 The goal of this section is to prove the additivity theorem.
 
-\begin{theorem}[\cite{HLS23} Theorem.4.1: The Additivity Theorem] \label{thrm.additivity_theorem}
+\begin{theorem}[\cite{HLS23} Theorem 4.1: The Additivity Theorem] \label{thrm.additivity_theorem}
   Let $\C$ be a stable category.
   Then the source-target projection induces an equivalence of anima 
   \begin{align*}
@@ -880,7 +882,7 @@ The goal of this section is to prove the additivity theorem.
 
 Before proving \cref{thrm.additivity_theorem}, we show some corollaries.
 
-\begin{corollary}[\cite{HLS23} Corollary 4.2] \label{HLS23.cor.3.2}
+\begin{corollary}[\cite{HLS23} Corollary 4.2] \label{HLS23.cor.4.2}
   The algebraic K-theory $\K : \Catst \to \An$ is additive grouplike.
 \end{corollary}
 
@@ -890,8 +892,8 @@ Before proving \cref{thrm.additivity_theorem}, we show some corollaries.
   \begin{align*}
     \K(0) \simeq \Omega|\Span(0)| \simeq \Omega|\core Q(0)| \simeq 0.
   \end{align*}
-  By \cref{prop.Ber.subsec.5.2.2}, the algebraic K-theory $\K$ preserves finite products.
-  Then by \cref{HLS23.lem.2.5}, it is enough to show that $\K$ sends the source-target projection $(s,t) : \Ar(\C) \to \C$ to an equivalence of anima.
+  The algebraic K-theory $\K$ preserves finite products.
+  Then by \cref{HLS23.lem.2.5}, it is enough to show that $\K$ sends the source-target projection $(s,t) : \Ar(\C) \to \C^2$ to an equivalence of anima.
   That is, there is an equivalence $\K(s,t) : \K(\Ar(\C)) \to \K(\C)^2$.
   
   By \cref{thrm.additivity_theorem}, we have an equivalence $|\Span(\Ar(\C))| \to |\Span(\C)|^2$.
@@ -904,6 +906,7 @@ Before proving \cref{thrm.additivity_theorem}, we show some corollaries.
 \begin{corollary}[Eilenberg swindle] \label{Ber.prop.A.4}
   Let $\C$ be a stable category with countable coproducts.
   Then the algebraic K-theory anima vanishes.
+  That is, we have an equivalence of anima
   \begin{align*}
     \K(\C) \simeq 0.
   \end{align*}
@@ -920,13 +923,13 @@ Before proving \cref{thrm.additivity_theorem}, we show some corollaries.
   \begin{align*}
     \mid, \fib+\cofib : \Seq(\Fun^{\mathrm{ex}}(\C,\D)) \to \Fun^{\mathrm{ex}}(\C,\D).
   \end{align*}
-  Since $\K$ is extension splitting (see \cref{HLS23.prop.2.4}), by Waldhausen's Additivity Theorem (TBA), we have an equivalence % Ber.lem.3.77
+  Since $\K$ is extension-splitting (see \cref{HLS23.prop.2.4}), by Waldhausen's Additivity Theorem (TBA), we have an equivalence % Ber.lem.3.77
   \begin{align*}
     \K(\mid) \simeq \K(\fib) + \K(\cofib).
   \end{align*}
-  We obtain the assertion by applying to this proposition to the cofiber sequence $F' \to F \to F''$.
+  We obtain the assertion by applying this proposition to the cofiber sequence $F' \to F \to F''$.
 
-  Consider the functor
+  Consider the following exact functor
   \begin{align*}
     F : \C \to \C : X \mapsto \bigoplus_{n \in \mathbb{N}} X_n .
   \end{align*}
@@ -939,7 +942,7 @@ Before proving \cref{thrm.additivity_theorem}, we show some corollaries.
   \begin{align*}
     \K(F) \simeq \K(\id_{\C}) + \K(\F). 
   \end{align*}
-  Thus we have $\K(\id_{\C}) \simeq 0$ and $\K(\C) \simeq 0$.
+  Thus we have $\K(\id_{\C}) \simeq 0$ and, in particular $\K(\C) \simeq 0$.
 \end{proof}
 
 The proof of \cref{thrm.additivity_theorem} follows from the next two propositions.
@@ -948,7 +951,9 @@ The proof of \cref{thrm.additivity_theorem} follows from the next two propositio
   Let $\C$ be a stable category.
   Then there are canonical equivalences of categories
   \begin{align*}
-    \Span(\C) \to \Span(\C^{\myop}) \quad \text{and} \quad \Span(\Ar(\C)) \simeq \Span(\TwAr(\C)).
+    \Span(\C) \to \Span(\C^{\myop}) 
+    \quad \text{ and } \quad 
+    \Span(\Ar(\C)) \simeq \Span(\TwAr(\C)).
   \end{align*}
   Moreover, they fit together into a natural commutative diagram 
   \[\begin{tikzpicture}[auto,->] 
@@ -958,8 +963,8 @@ The proof of \cref{thrm.additivity_theorem} follows from the next two propositio
     \node (br) at (5,0) {$\Span(\C) \times \Span(\C^{\myop}).$}; 
     \draw (tl) -- node {$\simeq$} (tr); 
     \draw (bl) -- node[swap] {$\simeq$} (br); 
-    \draw (tl) -- node[swap] {$(s,t)$} (bl);
-    \draw (tr) -- node {$(s,t)$} (br); 
+    \draw (tl) -- node[swap] {$\Span(s,t)$} (bl);
+    \draw (tr) -- node {$\Span(s,t)$} (br); 
   \end{tikzpicture}\]
 \end{proposition}
 
@@ -967,24 +972,52 @@ The proof of \cref{thrm.additivity_theorem} follows from the next two propositio
   Let $\C$ be a stable category.
   Then the source-target projection 
   \begin{align*}
-    (s,t) : \Span(\TwAr(\C)) \to \Span(\C) \times \Span(\C^{\myop})
+    \Span(s,t) : \Span(\TwAr(\C)) \to \Span(\C) \times \Span(\C^{\myop})
   \end{align*}
   is cofinal.
 \end{proposition}
+
+\subsection{The Algebraic K-Theory Spectrum}
+
+We can define the algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
+
+\begin{definition}
+  \Cref{HLS23.cor.4.2} implies that the algebraic K-theory $\K : \Catst \to An$ lifts to the functor 
+  \begin{align*}
+    \K : \Catst \to \Grp(\An).
+  \end{align*}
+  Then we obtain a functor 
+  \begin{align*}
+    \K_{\geq 0} : \Catst \to \Sp_{\geq 0},
+  \end{align*}
+  since we have the equivalence $\Grp(\An) \simeq \Sp_{\geq 0}$
+  We will refer to it as the \textit{algebraic K-theory spectrum}.
+\end{definition}
+
+\begin{remark}
+  There is the equivalence $\Omega^\infty : \Sp_{\geq 0} \rightleftarrows \Grp(\An) : \Sigma^\infty$.
+  We can recover the algebraic K-theory from the algebraic K-theory spectrum as 
+  \begin{align*}
+    \K \simeq \Omega^\infty \K_{\geq 0} : \Catst \to \Sp_{\geq 0} \simeq \Grp(\An) 
+  \end{align*}
+  since $\Sigma^\infty$ is fully faithful.
+\end{remark}
 
 
 \section{The Localization Theorem}
 
 The goal of this section is to prove the localization theorem.
 
-\begin{theorem}[\cite{HLS23} Theorem.6.1: The Localization Theorem] \label{thrm.localization_theorem}
+\begin{theorem}[\cite{HLS23} Theorem 6.1: The Localization Theorem] \label{thrm.localization_theorem}
   The algebraic K-theory $\K : \Catst \to \An$ and the algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$ are Verdier-localizing.
 \end{theorem}
 
-By the corollary of \cref{thrm.Waldhausen_fibration_theorem}, an additive grouplike functor $F : \Catst \to \An$ is Verdier-localizing if and only if it satisfies the following condition:
-\begin{itemize}
-  \item[$(\ast)$] For every Verdier sequence $\C \to \D \to \E$, the canonical map $|F\Fun^{\C}([-],\D)| \to F(\E)$ is an equivalence of anima.
-\end{itemize}
+\begin{remark}
+  By \cref{HLS23.cor.2.10}, an additive grouplike functor $F : \Catst \to \An$ is Verdier-localizing if and only if it satisfies the following condition:
+  \begin{itemize}
+    \item[$(\ast)$] For every Verdier sequence $\C \to \D \to \E$, the canonical map $|F\Fun^{\C}([-],\D)| \to F(\E)$ is an equivalence of anima.
+  \end{itemize}
+\end{remark}
 
 The next proposition implies that it is enough to prove that the core functor satisfies $(\ast)$.
 
@@ -994,58 +1027,65 @@ The next proposition implies that it is enough to prove that the core functor sa
 \end{proposition}
 
 \begin{remark}
-  If the core functor satisfies $(\ast)$, then the K-theory functor also satisfies $(\ast)$.
-  Indeed, we can write 
-  \begin{align*}
-    \K(-) 
-    \simeq \Omega|\Span(-)| 
-    \simeq \Omega|\asscat\core Q(-)| 
-    \simeq \Omega|\core Q(-)|.
-  \end{align*}
+  If the core functor satisfies $(\ast)$, then the algebraic K-theory also satisfies $(\ast)$ since $\K(-) \simeq \Omega|\core Q(-)|$.
+  % \begin{align*}
+  %   \K(-) 
+  %   \simeq \Omega|\Span(-)| 
+  %   \simeq \Omega|\asscat\core Q(-)| 
+  %   \simeq \Omega|\core Q(-)|.
+  % \end{align*}
 \end{remark}
 
-To prove the proposition, we need the following lemma.
+% To prove \cref{HLS23.prop.6.2}, we need the following lemma.
 
-\begin{lemma}[\cite{HLS23} Lemma 6.4] \label{HLS23.lem.6.4} 
-  Verdier sequences are stable under applying the functor 
+% \begin{lemma}[\cite{HLS23} Lemma 6.4] \label{HLS23.lem.6.4} 
+%   Verdier sequences are stable under applying the functor 
+%   \begin{align*}
+%     \Fun(\I,-) : \Catst \to \Catst
+%   \end{align*}
+%   for every finite poset $\I$.
+% \end{lemma}
+
+% From the above discussion, we need to show that the core functor satisfies $(\ast)$.
+
+\begin{notation}
+  Let $\D$ be a stable category, and let $\C$ be a stable subcategory of $\D$.
+  We let $\D_{\C}$ denote the full subcategory of $\D$ spanned by the equivalences modulo $\C$ in $\D$.
+\end{notation}
+
+\begin{remark}
+  Let $\D$ be a stable category, and let $\C$ be a stable subcategory of $\D$.
+  We obtain an equivalence of anima 
   \begin{align*}
-    \Fun(\I,-) : \Catst \to \Catst
+    \core\Fun^{\C}([-],\D) 
+    \simeq \core\Fun([-],\D_{\C})
+    \simeq \Map_{\Cat}([-],\D_{\C})
+    \simeq \N^r(\D_{\C}).
   \end{align*}
-  for every finite poset $\I$.
-\end{lemma}
+  Then we have an equivalence 
+  \begin{align*}
+    |\core\Fun^{\C}([-],\D)| \simeq |\D_{\C}|,
+  \end{align*}
+  since the canonical map $|\N^r(\D_{\C})| \to |\D_{\C}|$ is an equivalence
+\end{remark}
 
-From the above discussion, we need to show that the core functor satisfies $(\ast)$.
-Let $\D$ be a stable category, and let $\C$ be a stable subcategory of $\D$.
-We let $\D_{\C}$ denote the full subcategory of $\D$ spanned by the equivalences modulo $\C$ in $\D$.
-Then we obtain 
-\begin{align*}
-  \core\Fun^{\C}([-],\D) 
-  \simeq \core\Fun([-],\D_{\C})
-  \simeq \Map_{\Cat}([-],\D_{\C})
-  \simeq \N^r(\D_{\C}).
-\end{align*}
-Since the canonical map $|\N^r(\D_{\C})| \to |\D_{\C}|$ is an equivalence of anima, we have an equivalence 
-\begin{align*}
-  |\core\Fun^{\C}([-],\D)| \simeq |\D_{\C}|.
-\end{align*}
 Thus it suffices to show the following proposition.
 
 \begin{proposition}[\cite{HLS23} Proposition 6.6] \label{HLS23.prop.6.6} 
   Let $\D$ be a stable category, and let $\C$ be a stable subcategory of $\D$.
-  We let $\D_{\C}$ denote the full subcategory of $\D$ spanned by the equivalences modulo $\C$ in $\D$.
   Then the map 
   \begin{align*}
     |\D_{\C}| \to \core(\D/\C)
   \end{align*}
   is faithful.
-  If the inclusion $\C \subseteq \D$ is a Verdier inclusion, then this map is an equivalence.
+  If the inclusion $\C \subseteq \D$ is a Verdier inclusion, then the above map is an equivalence.
 \end{proposition}
 
-This proposition is a special case of the following proposition.
+\Cref{HLS23.prop.6.6} is a special case of the following proposition.
 
 \begin{proposition}[\cite{HLS23} Proposition 6.8] \label{HLS23.prop.6.8} 
   Let $\C$ be a category, and let $S$ be a subcategory of $\C$.
-  If $S$ is closed under 2-out-of-3 and pushouts in $\C$, then a map 
+  If $S$ is closed under 2-out-of-3 and pushouts in $\C$, then the map 
   \begin{align*}
     |S| = S[S^{-1}] \to \C
   \end{align*}
@@ -1063,9 +1103,9 @@ This proposition is a special case of the following proposition.
 
 The goal of this section is to prove the universality theorem.
 
-\begin{theorem}[\cite{HLS23} Theorem.5.1: The Universality Theorem] \label{thrm.universality_theorem}
+\begin{theorem}[\cite{HLS23} Theorem 5.1: The Universality Theorem] \label{thrm.universality_theorem}
   The algebraic K-theory $\K : \Catst \to \An$ is an initial additive grouplike functor under the core functor $\core : \Catst \to \An$.
-  That is, the natural map $\tau : \core \Rightarrow \K$ is an initial object in the category $\Fun(\Catst,\An)^{\mathrm{add,grp}}_{\core/}$.
+  That is, the natural map $\tau : \core \Rightarrow \K$ is an initial object in $\Fun(\Catst,\An)^{\mathrm{add,grp}}_{\core/}$.
 \end{theorem}
 
 \begin{notation}
@@ -1074,10 +1114,13 @@ The goal of this section is to prove the universality theorem.
   \begin{align*}
     GF(-) := \Omega|FQ(-)| : \Catst \to \An. 
   \end{align*}
-  For example, the functor $G\core$ is equivalent to the algebraic K-theory $\K$.
 \end{notation}
 
-\begin{proof}[proof of \cref{thrm.universality_theorem}]
+\begin{example}
+  the functor $G\core$ is equivalent to the algebraic K-theory $\K : \Catst \to \An$.
+\end{example}
+
+\begin{proof}[Proof of \cref{thrm.universality_theorem}]
   We want to show that the natural transformation $\tau : \core \Rightarrow \K$ induces an equivalence
   \begin{align*}
     \tau^{\ast} : \Nat(\K,F) \to \Nat(\core,F)
@@ -1091,7 +1134,7 @@ The goal of this section is to prove the universality theorem.
     \node (ml) at (0,2) {$\Nat(GG\core,GF)$};
     \node (mr) at (5,2) {$\Nat(G\core,GF)$};
     \node (bl) at (0,0) {$\Nat(G\core,GF)$};
-    \node (br) at (5,0) {$\Nat(\core,GF)$};
+    \node (br) at (5,0) {$\Nat(\core,GF).$};
     % horizontal lines
     \draw (tl) -- node {$(\eta_{\core})^\ast$} (tr);
     \draw[red] (ml) -- node {$(G\eta_{\core})^\ast$} (mr);
@@ -1105,9 +1148,9 @@ The goal of this section is to prove the universality theorem.
     \draw[bend right=70,red] (tl) to node[swap] {$(\eta_{F})^\ast$} (bl);
     \draw[bend left=70,red] (tr) to node {$(\eta_{F})^\ast$} (br);
   \end{tikzpicture}\]
-  where the upper square commutes since $G$ is a functor, and the other there parts commute since $\eta$ is natural.
-  Suppose the red-colored maps are equivalent, then we can show that the upper horizontal map $(\eta_{\core})^\ast$ is an equivalence.
-  If we apply this to the case $F \simeq \core$, then we obtain the desired result.
+  The upper square commutes since $G$ is a functor, and the other three parts commute since $\eta$ is natural.
+  If the red-colored maps are equivalent, then we can show that the upper horizontal map $(\eta_{\core})^\ast$ is an equivalence.
+  If we apply this to the case $F$ is $\core$, then we obtain the desired result.
   This assumption follows from the next two propositions.
 \end{proof}
 
@@ -1147,9 +1190,9 @@ The next proposition implies that $(\eta_{G\core})$ is an equivalence.
 
 The goal of this section is to prove the cofinality theorem.
 
-\begin{theorem}[\cite{HLS23} Theorem.7.1: The Cofinality Theorem] \label{thrm.cofinality_theorem}
-  Let $f : \C \to \D$ be a functor between stable categories.
-  If $f$ is a dense inclusion, then it induces a fiber sequence
+\begin{theorem}[\cite{HLS23} Theorem 7.1: The Cofinality Theorem] \label{thrm.cofinality_theorem}
+  Let $f : \C \subseteq \D$ be a dense inclusion of stable categories.
+  Then it induces a fiber sequence
   \begin{align*}
     \K(\C) \to \K(\D) \to \K_0(\D)/\K_0(\C).
   \end{align*}
@@ -1166,7 +1209,7 @@ The goal of this section is to prove the cofinality theorem.
 \Cref{thrm.cofinality_theorem} holds for a broader class of additive Karoubian functors (\cref{HLS23.thrm.7.7}).
 
 \begin{definition}[\cite{HLS23} Definition 7.4] \label{HLS23.def.7.4}
-  Let $f : X \to Y$ be a map of $\Einf$-monoids in $\An$.
+  Let $f : X \to Y$ be a map of $\Einf$-monoids.
   We will say that $f$ is \textit{cofinal} if it satisfies the following conditions:
   \begin{enumerate}
     \item The map $\pi_0(f) : \pi_0(X) \to \pi_0(Y)$ is an inclusion.
@@ -1196,33 +1239,10 @@ The goal of this section is to prove the cofinality theorem.
   Let $F : \Catst \to \An$ be an additive Karoubian functor.
   We will refer to the functor
   \begin{align*}
-    F^{\grp} := \Omega|FQ-| : \Catst \to \An
+    F^{\grp}(-) := \Omega|FQ(-)| : \Catst \to \An
   \end{align*}
   as the \textit{group completion} of $F$.
 \end{definition}
-
-\begin{example} \label{Ber.rem.5.50}
-  The core functor $\core : \Catst \to \An$ is Karoubian.
-
-  (1):
-  Let $\C \hookrightarrow \D$ be a dense inclusion of stable categories.
-  Then $\core\C \to \core\D$ is cofinal.
-  Let $d$ be an object of $\pi_0(\core\D)$, and let $c$ be an object of $\pi_0(\core\C)$ such that $c+d$ is an object of $\pi_0(\core\C)$.
-  Then we have an equivalence $d \simeq \fib(c \oplus d \to c)$.
-  Since $\C$ is closed under fiber sequences, $d$ is an object of $\pi_0(\core\C)$.
-  That is, $\core\C \to \core\D$ is dense.
-
-  (2):
-  The core functor preserves limits, since it is a right adjoint functor.
-\end{example}
-
-\begin{example} \label{eg.group_completion_of_core}
-  The group completion 
-  \begin{align*}
-    (\core)^{\grp} : \Catst \to \An
-  \end{align*}
-  of $\core : \Catst \to \An$ is equivalent to the algebraic K-theory $\K : \Catst \to \An$.
-\end{example}
 
 \begin{theorem}[\cite{HLS23} Theorem 7.7] \label{HLS23.thrm.7.7}
   Let $F : \Catst \to \An$ be an additive Karoubian functor.
@@ -1248,12 +1268,35 @@ The goal of this section is to prove the cofinality theorem.
     F^{\grp} : \Catst \to \An
   \end{align*}
   of $F$ is also additive Karoubian.
-  If $F^{\grp}$ is Verdier-localizing, then the functor
+  Moreover if $F^{\grp}$ is Verdier-localizing, then the functor
   \begin{align*}
     F^{\grp} \circ (-)^{\natural} : \Catst \to \An
   \end{align*}
   is Karoubi-localizing.
 \end{corollary}
+
+\begin{example} \label{Ber.rem.5.50}
+  The core functor $\core : \Catst \to \An$ is (additive) Karoubian.
+
+  (1):
+  Let $\C \hookrightarrow \D$ be a dense inclusion of stable categories.
+  Then the map $\core f : \core\C \to \core\D$ is cofinal.
+  Let $d$ be an element in $\pi_0(\core\D)$, and let $c$ be an element in $\pi_0(\core\C)$ such that $c+d$ is in $\pi_0(\core\C)$.
+  Then we have an equivalence $d \simeq \fib(c \oplus d \to c)$.
+  The element $d$ is in $\pi_0(\core\C)$ since $\C$ is closed under fibers.
+  That is, $\core f$ is dense.
+
+  (2):
+  The core functor preserves limits, since it is a right adjoint functor.
+\end{example}
+
+\begin{example} \label{eg.group_completion_of_core}
+  The group completion 
+  \begin{align*}
+    (\core)^{\grp} : \Catst \to \An
+  \end{align*}
+  of $\core : \Catst \to \An$ is equivalent to the algebraic K-theory $\K : \Catst \to \An$.
+\end{example}
 
 \begin{example} \label{Ber.cor.5.52}
   By \cref{eg.group_completion_of_core,HLS23.cor.7.8}, the algebraic K-theory $\K : \Catst \to \An$ is additive Karoubian.
@@ -1265,32 +1308,6 @@ The goal of this section is to prove the cofinality theorem.
   is Karoubi-localizing.
 \end{example}
 
-
-\section{The Algebraic K-Theory Spectrum}
-
-We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
-
-\begin{definition}
-  \Cref{cor.algebraic_k-theory_is_additive_grouplike} implies that the K-theory functor lifts to a functor 
-  \begin{align*}
-    \K : \Catst \to \Grp(\An).
-  \end{align*}
-  Since we have the equivalence $\Grp(\An) \simeq \Sp_{\geq 0}$, we obtain a functor 
-  \begin{align*}
-    \K_{\geq 0} : \Catst \to \Sp_{\geq 0} \subseteq \Sp.
-  \end{align*}
-  We will refer to this functor as the \textit{algebraic K-theory spectrum}.
-\end{definition}
-
-\begin{remark}
-  There is the equivalence $\Omega^\infty : \Sp_{\geq 0} \rightleftarrows \Grp(\An) : \Sigma^\infty$.
-  We can recover the algebraic K-functor from algebraic K-theory spectrum as 
-  \begin{align*}
-    \K \simeq \Omega^\infty \K_{\geq 0} :  \Catst \to \Sp_{\geq 0} \simeq \Grp(\An) 
-  \end{align*}
-  since $\Sigma^\infty$ is fully faithful.
-\end{remark}
-
 \newpage
 \appendix
 
@@ -1298,8 +1315,8 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
 \section{Proofs in \Cref{sec.localization_properties}}
 
 \begin{newproof}[\Cref{Ber.rem.3.53}] \label{proof_of_Ber.rem.3.53}
-  We show that every Verdier sequence square is a coCartesian diagram in $\Catst$.
-  Consider the following Verdier sequence.
+  We show that every Verdier square is a coCartesian diagram in $\Catst$.
+  Consider the following Verdier square.
   \[\begin{tikzpicture}[auto,->] 
     \node (tl) at (0,1.5) {$\D$}; 
     \node (tr) at (1.5,1.5) {$\D'$};
@@ -1314,8 +1331,7 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
     % pullback symbol (\lrcorner) in the lower right corner of (tl)
     \node at (tl.south east) {$\lrcorner$};
   \end{tikzpicture}\]
-  where the vertical maps are Verdier projections. 
-  Then we can extend to the following diagram.
+  Since the vertical maps are Verdier projections, we can extend it to the following diagram.
   \[\begin{tikzpicture}[auto,->] 
     \node (tl) at (0,1.5) {$\C$};
     \node (tm) at (1.5,1.5) {$\D$}; 
@@ -1345,8 +1361,9 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
 
 \begin{newproof}[\Cref{CDH23.prop.1.5.5}] \label{proof_of_CDH23.prop.1.5.5}
   (1) $\Rightarrow$ (2) is obvious.
+
   (2) $\Rightarrow$ (1): 
-  Consider the following Verdier sequence.
+  Consider the following Verdier square.
   \[\begin{tikzpicture}[auto,->] 
     \node (tl) at (0,1.5) {$\D$}; 
     \node (tr) at (1.5,1.5) {$\D'$};
@@ -1361,7 +1378,7 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
     % pullback symbol (\lrcorner) in the lower right corner of (tl)
     \node at (tl.south east) {$\lrcorner$};
   \end{tikzpicture}\]
-  Then we can extend to the following diagram.
+  Then we can extend it to the following diagram.
   \[\begin{tikzpicture}[auto,->] 
     \node (tl) at (0,1.5) {$\C$};
     \node (tm) at (1.5,1.5) {$\D$}; 
@@ -1385,9 +1402,9 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
     % \node at (bm.north west) {$\ulcorner$};
     % \node at (br.north west) {$\ulcorner$};
   \end{tikzpicture}\]
-  By definition, the left, right, outer squares are Cartesian squares.
-  Thus the sequences $\C \to \D \to \E$ and $\C \to \D' \to E'$ are Verdier sequences in $\Catst$.
-  By assumption, the sequences $F(\C) \to F(\D) \to F(\E)$ and $F(\C) \to F(\D') \to F(\E')$ are fiber sequences in $\E$.
+  By definition, the left, right, and outer squares are Cartesian squares.
+  Thus sequences $\C \to \D \to \E$ and $\C \to \D' \to E'$ are Verdier in $\Catst$.
+  By assumption, sequences $F(\C) \to F(\D) \to F(\E)$ and $F(\C) \to F(\D') \to F(\E')$ are fiber sequences in $\E$.
   Then the left and outer squares in the following diagram are Cartesian squares. 
   \[\begin{tikzpicture}[auto,->] 
     \node (tl) at (0,1.5) {$F(\C)$};
@@ -1460,7 +1477,7 @@ We can define an algebraic K-theory spectrum $\K_{\geq 0} : \Catst \to \Sp$.
 To prove \cref{HLS23.prop.3.2}, we need some preliminaries.
 
 \begin{notation}
-  For every $n \geq 0$, we let $\J_n$ denote the full subcategory of $\TwAr[n]$ spanned by the images of objects $(i \leq j)$ in $[n]$ satisfying $j \leq i+1$.
+  For every $n \geq 0$, we let $\J_n$ denote the full subcategory of $\TwAr[n]$ spanned by the images of objects $(i \leq j)$ satisfying $j \leq i+1$.
 \end{notation}
 
 \begin{lemma} \label{Ber.lem.4.28}
@@ -1484,7 +1501,7 @@ To prove \cref{HLS23.prop.3.2}, we need some preliminaries.
     \simeq \TwAr[1] \coprod_{\TwAr[0]} \TwAr[1] \cdots \coprod_{\TwAr[0]} \TwAr[1]
   \end{align*}
   in $\Catlex$.
-  Then the right Kan extension along the inclusion $\J_n \subseteq \TwAr[n]$ factors through $n(n-1)/2$-times the right Kan extension along the inclusion $\J_i \subseteq \TwAr[i]$ for $2 \leq n$.
+  Then the right Kan extension along the inclusion $\J_n \subseteq \TwAr[n]$ factors through $n(n-1)/2$-times the right Kan extension along the inclusion $\J_i \subseteq \TwAr[i]$ for every $n \geq 2$.
   The right Kan extension along the inclusion $\J_2 \subseteq \TwAr[2]$ correspondences the operation of taking the pullback.
   Then the equivalence of conditions follows from that a functor $F$ belong to $Q_n(\C)$ if and only if each square is a Cartesian square.
 \end{proof}
