@@ -9,7 +9,7 @@ Here is the presentation material which I presented at the Workshop on the Algeb
 
 ## Higher Category Theory
 
-- [An Introduction to Stable Infinity Categories](https://github.com/Yonoha/public_notes/blob/main/stable/CiT_1st_An_Introduction_to_Stable_Infinity_Categories.pdf) <br>
+- [An Introduction to Stable Infinity Categories](https://github.com/Yonoha/public_notes/blob/main/stable_CiT1/CiT_1st_An_Introduction_to_Stable_Infinity_Categories.pdf) <br>
 Here is the presentation material which I presented at [1st Categories in Tokyo](https://sites.google.com/view/categoriesintokyo/%E3%83%9B%E3%83%BC%E3%83%A0).
 
 - [A Note on Presentable Infinity-Categories](https://github.com/Yonoha/public_notes/blob/main/presentable_category/presentable_category.pdf)
