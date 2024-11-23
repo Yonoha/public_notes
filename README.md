@@ -4,14 +4,13 @@ I share study notes and presentation materials.
 
 ## Algebraic K-Theory 
 
-- [The Algebraic K-Theory of Stable Infinity-Categories](https://github.com/Yonoha/public_notes/blob/main/algebraic_k_theory/algebraic_k_theory.pdf)
+- [The Algebraic K-Theory of Stable Infinity-Categories](https://github.com/Yonoha/public_notes/blob/main/algebraic_k_theory/algebraic_k_theory.pdf) <br>
 Here are the presentation materials which I presented at the Workshop on the Algebraic K-Theory.
 
 ## Higher Category Theory
 
-- [An Introduction to Stable Infinity Categories](https://github.com/Yonoha/public_notes/blob/main/stable/CiT_1st_An_Introduction_to_Stable_Infinity_Categories.pdf)
+- [An Introduction to Stable Infinity Categories](https://github.com/Yonoha/public_notes/blob/main/stable/CiT_1st_An_Introduction_to_Stable_Infinity_Categories.pdf) <br>
 Here are the presentation materials which I presented at [1st Categories in Tokyo](https://sites.google.com/view/categoriesintokyo/%E3%83%9B%E3%83%BC%E3%83%A0).
-<br>
 
 - [A Note on Presentable Infinity-Categories](https://github.com/Yonoha/public_notes/blob/main/presentable_category/presentable_category.pdf)
 
