@@ -1,6 +1,6 @@
 # Public Notes
 
-I share study notes and presentation materials.
+I share study my notes and presentation materials.
 
 ## Algebraic K-Theory 
 
