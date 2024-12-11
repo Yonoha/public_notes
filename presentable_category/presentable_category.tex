@@ -46,6 +46,7 @@
 \DeclareMathOperator{\Fun}{Fun}
 \DeclareMathOperator{\FunL}{Fun^{L}}
 \DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\TwAr}{TwAr}
 \renewcommand{\ev}{\mathrm{ev}}
 
 % categories (using mathcal)
@@ -75,8 +76,6 @@
 
 % ------------------------------------------------------
 
-\begin{document}
-
 % theorem style (using definition style)
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem*{definition*}{Definition}
@@ -98,8 +97,12 @@
 
 % --------------------------------------------------
 
+
 \title{A Note on Presentable \texorpdfstring{$\infty$}{infty}-Categories}
 \author{Keima Akasaka}
+
+\begin{document}
+
 \maketitle 
 
 \begin{abstract}
@@ -110,55 +113,63 @@
 \setcounter{tocdepth}{2}
 \tableofcontents   
 
+
 \section{Introduction}
 
 We summarize key concepts and results on presentable $\infty$-categories, focusing on their foundational aspects.
-We primarily refer to \cite{HTT}, but we also make use of \cite{KNP,kerodon,Gal23}.
+We primarily refer to \cite[Chapter 5]{HTT}, but we also make use of \cite{KNP,kerodon,Land}.
 
-\section{Yoneda's Lemma}
+Many categories which arise naturally is \textit{large}: 
+They have a class of objects.
+However, large categories $\C$ can be determined by "small" categories $\C_0$ in some sense:
+That is, $\C$ is the equivalent to the category of Ind-objects of $\C_0$.
 
-\subsection{Preliminaries}
+The aim of this note is to study these "good" large categories, called presentable categories in the setting of $\infty$-categories.
+
+\subsection{Notations}
 
 From here all categories are assumed to be $\infty$-categories.
-Let $\kappa$ be a regular cardinal.
-
-\begin{notation}
-  We let 
+We let 
 \begin{itemize}
-  \item $\An$ denote the category of anima.
+  \item $\An$ denote the category of small anima.
   \item $\CAT$ denote the category of (not necessarily small) categories.
   \item $\PrL$ denote the category of presentable categories with left adjoint functors.
 \end{itemize}
-\end{notation}
 
-We recall the size conditions of categories.
 
-\begin{definition}
+\section{Yoneda's Lemma}
+
+\subsection{Small Simplicial Sets}
+
+We recall the size conditions of simplicial sets.
+Let $\kappa$ be a regular cardinal.
+
+\begin{definition}[\cite{kerodon} \href{https://kerodon.net/tag/03S2}{Definition 03S2}]
   Let $K$ be a simplicial set.
   We will say that $K$ is \textit{$\kappa$-small} if the collection of non-degenerate simplices of $K$ is $\kappa$-small as a set.
   We will say that $K$ is \textit{small} if it is $\kappa$-small for some $\kappa$.
 \end{definition}
 
-\begin{definition}[\cite{HTT} Definition.5.4.1.3]
+\begin{definition}[\cite{HTT} Definition 5.4.1.3]
   Let $\C$ be a category.
   We will say that $\C$ is \textit{essentially $\kappa$-small} if there exist a $\kappa$-small category $\C'$ and an equivalence of categories $\C' \to \C$.
   We will say that $\C$ is \textit{essentially small} if it is essentially $\kappa$-small for some $\kappa$.
 \end{definition}
 
-\begin{definition}[\cite{HTT} Section.5.4.1]
+\begin{definition}[\cite{HTT} Section 5.4.1]
   Let $\C$ be a category.
   We will say that $\C$ is \textit{locally $\kappa$-small} if, for every pair of objects $X$ and $Y$ of $\C$, the mapping anima $\Map_{\C}(X,Y)$ is essentially $\kappa$-small.
   We will say that $\C$ is \textit{locally small} if it is locally $\kappa$-small for some $\kappa$.
 \end{definition}
 
-\begin{definition}[\cite{HTT} Definition.1.2.13.4]
+\begin{definition}[\cite{HTT} Definition 1.2.13.4]
   Let $\C$ be a category, and let $f : K \to \C$ be a diagram of simplicial sets.
   We will refer to an initial object in the category $\C_{f/}$ as a \textit{colimit} for $f$.
   Dually, we will refer to a final object in the category $\C_{/f}$ as a \textit{limit} for $f$.
   If $K$ is $\kappa$-small, then a colimit for $f$ is called \textit{$\kappa$-small}.
 \end{definition}
 
-\begin{definition}[\cite{HTT} Definition.5.1.5.7]
+\begin{definition}[\cite{HTT} Definition 5.1.5.7]
   Let $\C$ be a category, and let $\C'$ be a full subcategory of $\C$.
   We will say that $\C'$ is \textit{stable under colimits} if, for every small diagram $f : K \to \C$ which admits a colimit $\overline{f} : K^\triangleright \to \C$, then the map $\overline{f}$ factors through $\C'$. 
 
@@ -172,13 +183,70 @@ We recall the size conditions of categories.
 
 \subsection{The Yoneda embedding}
 
-Recall that there exists the adjunction between the 1-category $\sSet$ of simplicial sets and the 1-category $\Cat_{\Delta}$ of $\sSet$-enriched 1-categories:
-\begin{align*}
-  \mathfrak{C} : \sSet \rightleftarrows \Cat_{\Delta} : \N_{\Delta}
-\end{align*}
-where $\mathfrak{C}$ is the \textit{rigidification functor} and $\N_{\Delta}$ is the \textit{simplicial nerve} or \textit{(homotopy) coherent nerve}.
+\begin{definition}[\cite{Land} Definition 4.2.3] \label{Land.def.4.2.3}
+  Let $\C$ be a category.
+  The \textit{twisted arrow category} $\TwAr(\C)$ of $\C$ is the simplicial set defined by 
+  \begin{align*}
+    \TwAr(\C)_n := \Hom_{\mathrm{sSet}}([n] \star [n]^{\myop},\C)
+  \end{align*}
+  for every $n \geq 0$, where $\star$ denotes the join operator.
+  % By \href{https://kerodon.net/tag/03JR}{Corollary 03JR}, $\TwAr(\C)$ is a category.
+\end{definition}
 
-\begin{construction}
+\begin{remark}
+  Let $\C$ be a category.
+  Then there are two projections
+  \begin{align*}
+    s : \TwAr(\C) \to \C
+    \quad \text{ and } \quad
+    t : \TwAr(\C) \to \C^{\myop} 
+  \end{align*}
+  which are defined as follows:
+  They send each $n$-simplex $\sigma$ of $\TwAr(\C)$ to the composition
+  \begin{align*}
+    [n] \hookrightarrow [n] \star [n]^{\myop} \xrightarrow{\sigma} \C
+    \quad \text{ and } \quad
+    [n]^{\myop} \hookrightarrow [n] \star [n]^{\myop} \xrightarrow{\sigma} \C.
+  \end{align*}
+  respectively.
+  Then these projections induce a right fibration 
+  \begin{align*}
+    (s,t) : \TwAr(\C) \to \C \times \C^{\myop}.
+  \end{align*}
+  As a consequence, for a category $\C$, $\TwAr(\C)$ is also a category.
+\end{remark}
+
+\begin{definition}[\cite{Land} Definition 4.2.5] \label{Land.def.4.2.5}
+  Let $\C$ be a category.
+  We let 
+  \begin{align*}
+    \Map_{\C}(-,-) : \C^{\myop} \times \C \to \An 
+  \end{align*}
+  denote the functor obtained by the straightening of the right fibration $(s,t) : \TwAr(\C) \to \C \times \C^{\myop}$.
+\end{definition}
+
+\begin{definition}[\cite{Land} Definition 4.2.9] \label{Land.def.4.2.9}
+  Let $\C$ be a category.
+  We let 
+  \begin{align*}
+    \yo : \C \to \Fun(\C^{\myop},\An)
+  \end{align*}
+  denote the right adjoint functor to $\Map_{\C}(-,-) : \C^{\myop} \times \C \to \An$.
+  We will refer to it as the \textit{Yoneda embedding}.
+\end{definition}
+
+There are other constructions of the Yoneda embedding.
+These are at least objectwise equivalent to each other.
+
+\begin{remark}
+  Recall that there exists the adjunction between the 1-category $\sSet$ of simplicial sets and the 1-category $\Cat_{\Delta}$ of $\sSet$-enriched 1-categories:
+  \begin{align*}
+    \mathfrak{C} : \sSet \rightleftarrows \Cat_{\Delta} : \N_{\Delta}
+  \end{align*}
+  where $\mathfrak{C}$ is the \textit{rigidification functor} and $\N_{\Delta}$ is the \textit{simplicial nerve} or \textit{(homotopy) coherent nerve}.
+\end{remark}
+
+\begin{construction}[\cite{HTT} Section 5.1.3]
   Let $K$ be a simplicial set.
   We have a simplicial functor 
   \begin{align*}
@@ -205,31 +273,23 @@ where $\mathfrak{C}$ is the \textit{rigidification functor} and $\N_{\Delta}$ is
   Similarly, we can define the \textit{(covariant) Yoneda functor} $\oy : K^{\myop} \to \Fun(K,\An)$.
 \end{construction}
 
-% \begin{remark}[\cite{Gal23} Remark.2.67] \label{Gal23.rem.2.67}
-%   Let $\C$ be a category.
-%   We note that the functor $\C^{\myop} \times \C \to \An$ constructed above is pointwise equivalent to the mapping anima in $\C$, but not equal.
-%   In many cases of $\infty$-categories, the mapping space bifunctor will be defined. 
-%   Therefore, some notions are sometimes defined and proved using this mapping bifunctor 
-%   (see \cref{rem.not_equiv_def_of_compact,rem.mapping_space_functor_1,rem.mapping_space_functor_2,rem.mapping_space_functor_3,rem.mapping_space_functor_4}) 
-%   instead of the Yoneda embedding. 
-%   However, rigorous statements should be based on the argument using the Yoneda embedding.
-% \end{remark}
+% \begin{theorem}[\cite{Land} Proposition 4.2.10]
+  
+% \end{theorem}
 
-From here we let $\yo : \C \to \Fun(\C^{\myop},\An)$ denote the Yoneda embedding.
-
-\begin{proposition}[\cite{HTT} Proposition.5.1.3.1]
+\begin{corollary}[\cite{Land} Proposition 4.2.11]
   Let $\C$ be a category.
-  Then the functor $\yo$ is fully faithful.
-\end{proposition}
+  Then the Yoneda embedding $\yo$ is fully faithful.
+\end{corollary}
 
-\begin{proposition}[\cite{HTT} Proposition.5.1.3.2]
+\begin{proposition}[\cite{HTT} Proposition 5.1.3.2]
   Let $\C$ be a small category.
-  Then the functor $\yo$ preserves small limits which exist in $\C$. 
+  Then the Yoneda embedding $\yo$ preserves small limits which exist in $\C$. 
 \end{proposition}
 
-For a category $\C$, the category $\Fun(\C^{\myop},\An)$ is freely generated by the functor $\yo$ under small colimits.
+For a category $\C$, $\Fun(\C^{\myop},\An)$ is freely generated by the Yoneda embedding $\yo$ under small colimits.
 
-\begin{theorem}[\cite{HTT} Theorem.5.1.5.6] \label{HTT.5.1.5.6}
+\begin{theorem}[\cite{HTT} Theorem 5.1.5.6] \label{HTT.5.1.5.6}
   Let $\C$ be a small category, and let $\D$ with small colimits.
   Then the functor $\yo$ induces an equivalence of categories 
   \begin{align*}
@@ -247,7 +307,7 @@ For a category $\C$, the category $\Fun(\C^{\myop},\An)$ is freely generated by 
 \end{theorem}
 
 
-\section{Presentable \texorpdfstring{$\infty$}{infty}-Categories}
+\section{The \texorpdfstring{$\infty$}{infty}-Category of Ind-objects}
 
 \subsection{Filtered \texorpdfstring{$\infty$}{infty}-Categories}
 
@@ -369,7 +429,7 @@ If a category $\C$ is $\kappa$-closed, we can construct $\kappa$-small colimits 
 %   If we use the (non-precise) definition of \cref{rem.not_equiv_def_of_compact}, we can prove \cref{HTT.5.3.4.15} simply but only intuitively:
 % \end{remark}
 
-\subsection{Ind-Objects}
+\subsection{The \texorpdfstring{$\infty$}{infty}-Category of Ind-objects}
 
 We showed that the category $\Fun(\C^{\myop},\An)$ is freely generated by the functor $\yo$ under small colimits (\cref{HTT.5.1.5.6}).
 We next consider the analogue situation only under $\kappa$-filtered small colimits.
@@ -541,6 +601,9 @@ The following proposition will be useful throughout this paper.
   Every small colimit can be written as a $\kappa$-filtered colimit of $\kappa$-small colimits.
   It follows from the definition of $\Ind_{\kappa}(\C)$ and \cref{HTT.5.3.5.14}.
 \end{proof}
+
+
+\section{Presentable \texorpdfstring{$\infty$}{infty}-Categories}
 
 \subsection{Accessible \texorpdfstring{$\infty$}{infty}-Categories}
 
@@ -741,3 +804,13 @@ The operation $\otimes$ endows a symmetric monoidal structure on $\PrL$.
 
 
 \end{document}
+
+% \begin{remark}[\cite{Gal23} Remark.2.67] \label{Gal23.rem.2.67}
+%   Let $\C$ be a category.
+%   We note that the functor $\C^{\myop} \times \C \to \An$ constructed above is pointwise equivalent to the mapping anima in $\C$, but not equal.
+%   In many cases of $\infty$-categories, the mapping space bifunctor will be defined. 
+%   Therefore, some notions are sometimes defined and proved using this mapping bifunctor 
+%   (see \cref{rem.not_equiv_def_of_compact,rem.mapping_space_functor_1,rem.mapping_space_functor_2,rem.mapping_space_functor_3,rem.mapping_space_functor_4}) 
+%   instead of the Yoneda embedding. 
+%   However, rigorous statements should be based on the argument using the Yoneda embedding.
+% \end{remark}
