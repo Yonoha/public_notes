@@ -174,9 +174,10 @@
 
 \section{Introduction}
 
-The aim of this note is to explain \textit{what a 6-functor formalism is}. 
-The concept of six functors for sheaves originated in Grothendieck's work, and these are often referred to as Grothendieck's six operations.
+The aim of this note is to explain \textit{what a 6-functor formalism is} and summarize the basic results and examples of 6-functor formalisms.
+A 6-functor formalism is a framework to formalize a cohomology theory, which provide a structured and systematic approach to handling cohomological operations. 
 
+The concept of six functors for sheaves originated in Grothendieck's work, and these are often referred to as Grothendieck's six operations.
 The first such formalism was developed to establish the \'{e}tale cohomology of schemes, as formulated by Yifeng Liu and Weizhe Zheng \cite{LZ17}.
 A subsequent formalism, intended for coherent cohomology of schemes, was provided by Dennis Gaitsgory and Nick Rozenblyum \cite{GR17}. 
 The former approach is based on heavy combinatorics of specific simplicial sets, while the latter uses the framework of $(\infty,2)$-categories. 
@@ -740,6 +741,74 @@ From here we omit the term "derived" and the derived symbol $\bbR$.
 
 
 \section{The Category of Correspondences} \label{sec.category_of_correspondences}
+
+\subsection{Motivations}
+
+Let us recall the setup of classical sheaf theory.
+We work with the category $\C$ of locally compact Hausdorff topological spaces.
+In this setting, there exists a class $E$ of morphisms in $\C$, where the exceptional functors $f_{!}$ and $f^{!}$ can be defined.
+Then we can 
+\begin{itemize}
+  \item For every object $X$ of $\C$, we obtain the category $\rmD(X)$ of sheaves on $X$.
+  \item For every morphism $f : X \to Y$ in $\C$, we have functors
+  \begin{align*}
+    f^{*} : \rmD(Y) \to \rmD(X)
+    \quad \text{ and } \quad 
+    f_{*} : \rmD(X) \to \rmD(Y).
+  \end{align*}
+  \item For every morphism $f : X \to Y$ in $E$, we can define functors
+  \begin{align*}
+    f_{!} : \rmD(X) \to \rmD(Y)
+    \quad \text{ and } \quad 
+    f^{!} : \rmD(Y) \to \rmD(X).
+  \end{align*}
+  \item Additionally, there exist bifunctors
+  \begin{align*}
+    \otimes : \rmD(X) \times \rmD(X) \to \rmD(X)
+    \quad \text{ and } \quad 
+    \underline{\Hom} : \rmD(X)^{\myop} \times \rmD(X) \to \rmD(X).
+  \end{align*}
+\end{itemize}
+
+There is a natural map 
+\begin{align*}
+  \rmD(X) \otimes \rmD(Y) \to \rmD(X \times Y).
+\end{align*}
+For $Y=X$, this induces a morphism
+\begin{align*}
+  \rmD(X) \otimes \rmD(X) \to \rmD(X \times X) \xrightarrow{\Delta^{*}} \rmD(X),
+\end{align*} 
+where the second morphism is given by the diagonal $\Delta : X \to X \times X$.
+
+In summary, the constructions $X \mapsto \rmD(X)$ and $f \mapsto f^{*}$ define a lax symmetric monoidal functor
+\begin{align*}
+  \rmD_{\C} : \C^{\myop} \to \Cat.
+\end{align*} 
+Similarly, the constructions $X \mapsto \rmD(X)$ and $f \mapsto f_{!}$ define a functor
+\begin{align*}
+  \rmD_{E} : \C_{E} \to \Cat,
+\end{align*}
+where $\C_{E}$ is the wide subcategory of $\C$ consisting of the morphisms in $E$.
+
+To unify the different directions of morphisms $f^{*}$ and $f_{!}$, we consider the category $\Corr(\C,E)$ of correspondences:
+\begin{itemize}
+  \item The objects of $\Corr(\C,E)$ are the objects of $\C$.
+  \item A morphism $X \to Y$ in $\Corr(\C,E)$ is a correspondence $X \leftarrow W \to Y$ in $\C$, where $W \to Y$ lies in $E$.
+\end{itemize}
+There are two inclusions
+\begin{align*}
+  \C^{\myop} \to \Corr(\C,E) 
+  &: (f : X \to Y) \mapsto (Y \xleftarrow{f} X \xrightarrow{\id_{X}} X), \\
+  E \to \Corr(\C,E) 
+  &: (f : X \to Y) \mapsto (X \xleftarrow{\id_{X}} X \xrightarrow{f} Y).
+\end{align*} 
+Then the above discussion can be summarized as follows:
+A 3-functor formalism is a lax symmetric monoidal functor
+\begin{align*}
+  \rmD : \Corr(\C,E) \to \Cat.
+\end{align*}
+To define a 6-functor formalism, we don't need any extra data.
+That is, a 6-functor formalism is a special case of a 3-functor formalism, where 3-functors $\otimes$, $f^{*}$ and $f_{!}$ admit right adjoint functors.
 
 In this section, we define the category of correspondences, which is a central ingredient in constructing 6-functor formalisms
 From here all categories are assumed to be $\infty$-categories.
