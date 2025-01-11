@@ -1,0 +1,255 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{GR17}{book}{}
+      \name{author}{2}{}{%
+        {{hash=0da990b8e12de8e4bcdbaff207c15484}{%
+           family={Gaitsgory},
+           familyi={G\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+        {{hash=6d0c23454f5609cf340fad037188d86e}{%
+           family={Rozenblyum},
+           familyi={R\bibinitperiod},
+           given={Nick},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{077d2f6629c91d6c6950517feeb03e59}
+      \strng{fullhash}{077d2f6629c91d6c6950517feeb03e59}
+      \strng{bibnamehash}{077d2f6629c91d6c6950517feeb03e59}
+      \strng{authorbibnamehash}{077d2f6629c91d6c6950517feeb03e59}
+      \strng{authornamehash}{077d2f6629c91d6c6950517feeb03e59}
+      \strng{authorfullhash}{077d2f6629c91d6c6950517feeb03e59}
+      \field{labelalpha}{GR17}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A study in derived algebraic geometry Volume I: Correspondences and duality}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://people.math.rochester.edu/faculty/doug/otherpapers/gaitsgory2.pdf
+      \endverb
+      \verb{url}
+      \verb https://people.math.rochester.edu/faculty/doug/otherpapers/gaitsgory2.pdf
+      \endverb
+    \endentry
+    \entry{HA}{book}{}
+      \name{author}{1}{}{%
+        {{hash=760ea879284b1a6eeaad87a82be8d1d7}{%
+           family={Lurie},
+           familyi={L\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{fullhash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{bibnamehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{authorbibnamehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{authornamehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{authorfullhash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \field{extraname}{1}
+      \field{labelalpha}{HA}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{shorthand}{HA}
+      \field{title}{Higher Algebra}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://people.math.harvard.edu/~lurie/papers/HA.pdf
+      \endverb
+      \verb{url}
+      \verb https://people.math.harvard.edu/~lurie/papers/HA.pdf
+      \endverb
+    \endentry
+    \entry{HM24}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=636ac1e12d00c49ff91182ba7e095b84}{%
+           family={Heyer},
+           familyi={H\bibinitperiod},
+           given={Claudius},
+           giveni={C\bibinitperiod}}}%
+        {{hash=996203605705d596e481362ac3bf0db9}{%
+           family={Mann},
+           familyi={M\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{9c27f7deca9763b9e1f890f11539fed2}
+      \strng{fullhash}{9c27f7deca9763b9e1f890f11539fed2}
+      \strng{bibnamehash}{9c27f7deca9763b9e1f890f11539fed2}
+      \strng{authorbibnamehash}{9c27f7deca9763b9e1f890f11539fed2}
+      \strng{authornamehash}{9c27f7deca9763b9e1f890f11539fed2}
+      \strng{authorfullhash}{9c27f7deca9763b9e1f890f11539fed2}
+      \field{labelalpha}{HM24}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.CT}
+      \field{eprinttype}{arXiv}
+      \field{title}{6-Functor Formalisms and Smooth Representations}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2410.13038
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2410.13038
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2410.13038
+      \endverb
+    \endentry
+    \entry{HTT}{book}{}
+      \name{author}{1}{}{%
+        {{hash=760ea879284b1a6eeaad87a82be8d1d7}{%
+           family={Lurie},
+           familyi={L\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{fullhash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{bibnamehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{authorbibnamehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{authornamehash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \strng{authorfullhash}{760ea879284b1a6eeaad87a82be8d1d7}
+      \field{extraname}{2}
+      \field{labelalpha}{HTT}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{shorthand}{HTT}
+      \field{title}{Higher Topos Theory}
+      \field{year}{2009}
+      \verb{urlraw}
+      \verb https://people.math.harvard.edu/~lurie/papers/highertopoi.pdf
+      \endverb
+      \verb{url}
+      \verb https://people.math.harvard.edu/~lurie/papers/highertopoi.pdf
+      \endverb
+    \endentry
+    \entry{LZ17}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=82de5e85b2a55227794435a0927faaaa}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yifeng},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=2cdab047a0710f94183a5c95a8daff7d}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Weizhe},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{862b222ee652db023f1e03bf01da38c4}
+      \strng{fullhash}{862b222ee652db023f1e03bf01da38c4}
+      \strng{bibnamehash}{862b222ee652db023f1e03bf01da38c4}
+      \strng{authorbibnamehash}{862b222ee652db023f1e03bf01da38c4}
+      \strng{authornamehash}{862b222ee652db023f1e03bf01da38c4}
+      \strng{authorfullhash}{862b222ee652db023f1e03bf01da38c4}
+      \field{labelalpha}{LZ17}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.AG}
+      \field{eprinttype}{arXiv}
+      \field{title}{Enhanced six operations and base change theorem for higher Artin stacks}
+      \field{year}{2017}
+      \verb{eprint}
+      \verb 1211.5948
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1211.5948
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1211.5948
+      \endverb
+    \endentry
+    \entry{Mann22}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=996203605705d596e481362ac3bf0db9}{%
+           family={Mann},
+           familyi={M\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{996203605705d596e481362ac3bf0db9}
+      \strng{fullhash}{996203605705d596e481362ac3bf0db9}
+      \strng{bibnamehash}{996203605705d596e481362ac3bf0db9}
+      \strng{authorbibnamehash}{996203605705d596e481362ac3bf0db9}
+      \strng{authornamehash}{996203605705d596e481362ac3bf0db9}
+      \strng{authorfullhash}{996203605705d596e481362ac3bf0db9}
+      \field{labelalpha}{Man22}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.AG}
+      \field{eprinttype}{arXiv}
+      \field{title}{A $p$-Adic 6-Functor Formalism in Rigid-Analytic Geometry}
+      \field{year}{2022}
+      \verb{eprint}
+      \verb 2206.02022
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2206.02022
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2206.02022
+      \endverb
+    \endentry
+    \entry{Sch22}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=bc840c61eeaaa9ae992e6d23e75c4a8a}{%
+           family={Scholze},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{bc840c61eeaaa9ae992e6d23e75c4a8a}
+      \strng{fullhash}{bc840c61eeaaa9ae992e6d23e75c4a8a}
+      \strng{bibnamehash}{bc840c61eeaaa9ae992e6d23e75c4a8a}
+      \strng{authorbibnamehash}{bc840c61eeaaa9ae992e6d23e75c4a8a}
+      \strng{authornamehash}{bc840c61eeaaa9ae992e6d23e75c4a8a}
+      \strng{authorfullhash}{bc840c61eeaaa9ae992e6d23e75c4a8a}
+      \field{labelalpha}{Sch22}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Six-Functor Formalisms}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://people.mpim-bonn.mpg.de/scholze/SixFunctors.pdf
+      \endverb
+      \verb{url}
+      \verb https://people.mpim-bonn.mpg.de/scholze/SixFunctors.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
